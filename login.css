@@ -24,7 +24,7 @@ body{
 
     align-items:center;
 
-    /* overflow:hidden; */
+   overflow-x: hidden;
 
     position:relative;
 
