@@ -16,7 +16,7 @@ const showLogin = document.getElementById("showLogin");
         TAB SWITCH
 ====================================================*/
 
-function showLoginForm(){
+function showLoginForm() {
 
     loginForm.classList.remove("hidden");
     signupForm.classList.add("hidden");
@@ -26,7 +26,7 @@ function showLoginForm(){
 
 }
 
-function showSignupForm(){
+function showSignupForm() {
 
     signupForm.classList.remove("hidden");
     loginForm.classList.add("hidden");
@@ -36,33 +36,33 @@ function showSignupForm(){
 
 }
 
-loginBtn.addEventListener("click",showLoginForm);
-signupBtn.addEventListener("click",showSignupForm);
+loginBtn.addEventListener("click", showLoginForm);
+signupBtn.addEventListener("click", showSignupForm);
 
-showSignup.addEventListener("click",showSignupForm);
-showLogin.addEventListener("click",showLoginForm);
+showSignup.addEventListener("click", showSignupForm);
+showLogin.addEventListener("click", showLoginForm);
 
 
 /*====================================================
         PASSWORD TOGGLE
 ====================================================*/
 
-document.querySelectorAll(".toggle-password").forEach(icon=>{
+document.querySelectorAll(".toggle-password").forEach(icon => {
 
-    icon.addEventListener("click",()=>{
+    icon.addEventListener("click", () => {
 
-        const input=icon.previousElementSibling;
+        const input = icon.previousElementSibling;
 
-        if(input.type==="password"){
+        if (input.type === "password") {
 
-            input.type="text";
+            input.type = "text";
 
             icon.classList.remove("fa-eye");
             icon.classList.add("fa-eye-slash");
 
-        }else{
+        } else {
 
-            input.type="password";
+            input.type = "password";
 
             icon.classList.remove("fa-eye-slash");
             icon.classList.add("fa-eye");
@@ -78,31 +78,31 @@ document.querySelectorAll(".toggle-password").forEach(icon=>{
         VALIDATION HELPERS
 ====================================================*/
 
-const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const passwordPattern=
-/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+const passwordPattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
 
 /*====================================================
         ERROR FUNCTIONS
 ====================================================*/
 
-function showError(id,message){
+function showError(id, message) {
 
-    const element=document.getElementById(id);
+    const element = document.getElementById(id);
 
-    element.innerText=message;
+    element.innerText = message;
 
     element.classList.add("show");
 
 }
 
-function clearError(id){
+function clearError(id) {
 
-    const element=document.getElementById(id);
+    const element = document.getElementById(id);
 
-    element.innerText="";
+    element.innerText = "";
 
     element.classList.remove("show");
 
@@ -113,15 +113,15 @@ function clearError(id){
         SHAKE FORM
 ====================================================*/
 
-function shake(form){
+function shake(form) {
 
-    form.style.animation="shake .4s";
+    form.style.animation = "shake .4s";
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
-        form.style.animation="";
+        form.style.animation = "";
 
-    },400);
+    }, 400);
 
 }
 
@@ -130,25 +130,25 @@ function shake(form){
         REMEMBER EMAIL
 ====================================================*/
 
-window.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("DOMContentLoaded", () => {
 
-    const savedMail=localStorage.getItem("rememberEmail");
+    const savedMail = localStorage.getItem("rememberEmail");
 
-    if(savedMail){
+    if (savedMail) {
 
-        const email=document.getElementById("loginEmail");
+        const email = document.getElementById("loginEmail");
 
-        if(email){
+        if (email) {
 
-            email.value=savedMail;
+            email.value = savedMail;
 
         }
 
-        const remember=document.querySelector(".remember-me input");
+        const remember = document.querySelector(".remember-me input");
 
-        if(remember){
+        if (remember) {
 
-            remember.checked=true;
+            remember.checked = true;
 
         }
 
@@ -161,21 +161,21 @@ window.addEventListener("DOMContentLoaded",()=>{
         LOGIN REALTIME
 ====================================================*/
 
-const loginEmail=document.getElementById("loginEmail");
+const loginEmail = document.getElementById("loginEmail");
 
-const loginPassword=document.getElementById("loginPassword");
+const loginPassword = document.getElementById("loginPassword");
 
 
-loginEmail.addEventListener("input",()=>{
+loginEmail.addEventListener("input", () => {
 
-    if(!emailPattern.test(loginEmail.value.trim())){
+    if (!emailPattern.test(loginEmail.value.trim())) {
 
         showError(
             "loginEmailError",
             "Enter a valid email address."
         );
 
-    }else{
+    } else {
 
         clearError("loginEmailError");
 
@@ -184,16 +184,16 @@ loginEmail.addEventListener("input",()=>{
 });
 
 
-loginPassword.addEventListener("input",()=>{
+loginPassword.addEventListener("input", () => {
 
-    if(loginPassword.value.length<8){
+    if (loginPassword.value.length < 8) {
 
         showError(
             "loginPasswordError",
             "Password must contain at least 8 characters."
         );
 
-    }else{
+    } else {
 
         clearError("loginPasswordError");
 
@@ -206,25 +206,25 @@ loginPassword.addEventListener("input",()=>{
         SIGNUP REALTIME
 ====================================================*/
 
-const signupName=document.getElementById("signupName");
+const signupName = document.getElementById("signupName");
 
-const signupEmail=document.getElementById("signupEmail");
+const signupEmail = document.getElementById("signupEmail");
 
-const signupPassword=document.getElementById("signupPassword");
+const signupPassword = document.getElementById("signupPassword");
 
-const signupConfirm=document.getElementById("signupConfirmPassword");
+const signupConfirm = document.getElementById("signupConfirmPassword");
 
 
-signupName.addEventListener("input",()=>{
+signupName.addEventListener("input", () => {
 
-    if(signupName.value.trim().length<3){
+    if (signupName.value.trim().length < 3) {
 
         showError(
             "signupNameError",
             "Minimum 3 characters required."
         );
 
-    }else{
+    } else {
 
         clearError("signupNameError");
 
@@ -233,16 +233,16 @@ signupName.addEventListener("input",()=>{
 });
 
 
-signupEmail.addEventListener("input",()=>{
+signupEmail.addEventListener("input", () => {
 
-    if(!emailPattern.test(signupEmail.value.trim())){
+    if (!emailPattern.test(signupEmail.value.trim())) {
 
         showError(
             "signupEmailError",
             "Invalid email address."
         );
 
-    }else{
+    } else {
 
         clearError("signupEmailError");
 
@@ -251,16 +251,16 @@ signupEmail.addEventListener("input",()=>{
 });
 
 
-signupPassword.addEventListener("input",()=>{
+signupPassword.addEventListener("input", () => {
 
-    if(!passwordPattern.test(signupPassword.value)){
+    if (!passwordPattern.test(signupPassword.value)) {
 
         showError(
             "signupPasswordError",
             "Use 8+ chars with uppercase, lowercase, number & special character."
         );
 
-    }else{
+    } else {
 
         clearError("signupPasswordError");
 
@@ -269,16 +269,16 @@ signupPassword.addEventListener("input",()=>{
 });
 
 
-signupConfirm.addEventListener("input",()=>{
+signupConfirm.addEventListener("input", () => {
 
-    if(signupPassword.value!==signupConfirm.value){
+    if (signupPassword.value !== signupConfirm.value) {
 
         showError(
             "signupConfirmError",
             "Passwords do not match."
         );
 
-    }else{
+    } else {
 
         clearError("signupConfirmError");
 
@@ -291,24 +291,24 @@ signupConfirm.addEventListener("input",()=>{
         BUTTON LOADING
 ====================================================*/
 
-function loading(button,text){
+function loading(button, text) {
 
-    button.disabled=true;
+    button.disabled = true;
 
-    button.dataset.text=button.innerHTML;
+    button.dataset.text = button.innerHTML;
 
-    button.innerHTML=`
+    button.innerHTML = `
         <i class="fa-solid fa-spinner fa-spin"></i>
         ${text}
     `;
 
 }
 
-function resetButton(button){
+function resetButton(button) {
 
-    button.disabled=false;
+    button.disabled = false;
 
-    button.innerHTML=button.dataset.text;
+    button.innerHTML = button.dataset.text;
 
 }
 
@@ -558,9 +558,9 @@ signupForm.addEventListener("submit", function (e) {
 
         resetButton(signupButton);
 
-        //  alert(
-        //     "🎉 Account created successfully!\nPlease login to continue."
-        // );
+
+
+
 
         signupForm.reset();
 
@@ -571,9 +571,7 @@ signupForm.addEventListener("submit", function (e) {
 });
 
 
-/*====================================================
-        ENTER KEY SUPPORT
-====================================================*/
+
 
 document.addEventListener("keydown", function (e) {
 
@@ -598,34 +596,29 @@ document.addEventListener("keydown", function (e) {
 });
 
 
-/*====================================================
-        REMOVE ERRORS WHEN CHANGING ROLE
-====================================================*/
 
 document
-.getElementById("loginRole")
-.addEventListener("change", () => {
+    .getElementById("loginRole")
+    .addEventListener("change", () => {
 
-    clearError("loginEmailError");
-    clearError("loginPasswordError");
+        clearError("loginEmailError");
+        clearError("loginPasswordError");
 
-});
+    });
 
 document
-.getElementById("signupRole")
-.addEventListener("change", () => {
+    .getElementById("signupRole")
+    .addEventListener("change", () => {
 
-    clearError("signupNameError");
-    clearError("signupEmailError");
-    clearError("signupPasswordError");
-    clearError("signupConfirmError");
+        clearError("signupNameError");
+        clearError("signupEmailError");
+        clearError("signupPasswordError");
+        clearError("signupConfirmError");
 
-});
+    });
 
 
-/*====================================================
-        PREVENT MULTIPLE SUBMITS
-====================================================*/
+
 
 document.querySelectorAll(".main-btn").forEach(btn => {
 
@@ -638,9 +631,7 @@ document.querySelectorAll(".main-btn").forEach(btn => {
 });
 
 
-/*====================================================
-        PAGE LOAD ANIMATION
-====================================================*/
+
 
 window.addEventListener("load", () => {
 
@@ -649,6 +640,3 @@ window.addEventListener("load", () => {
 });
 
 
-/*====================================================
-        END OF FILE
-====================================================*/

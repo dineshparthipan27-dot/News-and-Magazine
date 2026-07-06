@@ -11,19 +11,19 @@
 
     <style>
         :root {
-            /* Atka Magazine Theme Colors */
+
             --primary-color: #DC143C;
-            /* Crimson Red */
+
             --primary-light: #fbe5e9;
             --primary-dark: #990e2a;
             --secondary-color: #FF7F50;
-            /* Orange */
+
 
             --text-dark: #1e293b;
             --text-muted: #64748b;
             --bg-color: #f1f5f9;
 
-            /* Premium Dark Sidebar */
+
             --sidebar-bg: #111827;
             --sidebar-text: #9CA3AF;
             --sidebar-hover: #1F2937;
@@ -51,7 +51,7 @@
             width: 100%;
         }
 
-        /* --- SIDEBAR --- */
+
         .sidebar {
             width: 260px;
             background-color: var(--sidebar-bg);
@@ -170,7 +170,7 @@
             border-left: 4px solid #ef4444;
         }
 
-        /* --- MAIN CONTENT --- */
+
         .main-content {
             flex: 1;
             display: flex;
@@ -250,7 +250,7 @@
             color: var(--primary-color);
         }
 
-        /* --- VIEWS & ANIMATIONS --- */
+
         .view-section {
             display: none;
             padding: 30px;
@@ -295,7 +295,7 @@
             transform: translateY(0);
         }
 
-        /* --- CARDS & STATS --- */
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -366,7 +366,7 @@
             width: 100%;
         }
 
-        /* --- FORMS & VALIDATION --- */
+
         .input-group {
             margin-bottom: 18px;
         }
@@ -463,7 +463,7 @@
             color: #FFF;
         }
 
-        /* --- MEDIA ASSETS GRID --- */
+
         .media-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -550,7 +550,7 @@
             background: #fecaca;
         }
 
-        /* --- TIMELINE & TABLE --- */
+
         .timeline {
             margin-top: 20px;
             border-left: 3px solid #e2e8f0;
@@ -655,7 +655,7 @@
             margin-right: 5px;
         }
 
-        /* --- RESPONSIVE --- */
+
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -1134,7 +1134,7 @@
         document.querySelector(".user-email").textContent = email;
         const welcomeEl = document.querySelector(".welcome-name");
         if (welcomeEl) { welcomeEl.textContent = `| Welcome, ${formattedName} 👋`; }
-        // --- SIDEBAR LOGIC ---
+
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
         const openSidebarBtn = document.getElementById('openSidebar');
@@ -1147,7 +1147,7 @@
         closeSidebarBtn.addEventListener('click', closeSidebar);
         overlay.addEventListener('click', closeSidebar);
 
-        // --- TAB SWITCHING ---
+
         const menuLinks = document.querySelectorAll('.sidebar-menu .menu-link');
         const views = document.querySelectorAll('.view-section');
         const pageTitle = document.getElementById('page-title');
@@ -1163,7 +1163,7 @@
                 const targetId = this.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
 
-                // Update Title
+
                 let titleText = this.innerText.trim();
                 pageTitle.innerHTML = `${titleText} <span class="welcome-name">| Overview</span>`;
 
@@ -1172,7 +1172,7 @@
             });
         });
 
-        // --- CHART JS ---
+
         const ctx = document.getElementById('trafficChart').getContext('2d');
         const trafficChart = new Chart(ctx, {
             type: 'line',
@@ -1202,7 +1202,7 @@
             }
         });
 
-        // --- SCROLL ANIMATIONS ---
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { entry.target.classList.add('show'); }
@@ -1218,7 +1218,7 @@
         }
         triggerAnimations();
 
-        // --- FORM VALIDATION ---
+
         document.getElementById('articleForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -1233,7 +1233,7 @@
 
             let isValid = true;
 
-            // Reset errors
+
             headlineInput.classList.remove('input-error');
             categorySelect.classList.remove('input-error');
             prioritySelect.classList.remove('input-error');
