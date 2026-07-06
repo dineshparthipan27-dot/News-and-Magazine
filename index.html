@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Magazine Navbar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="news.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <!-- Logo Section -->
+        <a href="index.html" class="logo-container">
+            <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <a href="login.html" class="login-btn mob-view">Login</a>
+
+        </ul>
+
+        <!-- Login Button & Mobile Menu Icon -->
+        <div class="nav-right">
+            <a href="login.html" class="login-btn">Login</a>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breaking News Section -->
+    <div class="breaking-news-container">
+        <div class="breaking-title">
+            <span class="pulse-icon"></span> BREAKING NEWS
+        </div>
+        <div class="ticker-wrapper">
+            <div class="ticker-content" id="ticker-content">
+                <span class="ticker-item"><a href="404.html">🔥 AI Regulations 2026: New global standards announced for
+                        tech giants.</a></span>
+                <span class="ticker-item"><a href="404.html">🏆 India wins the thrilling T20 series finale in a dramatic
+                        last-ball finish!</a></span>
+                <span class="ticker-item"><a href="404.html">🌦️ Weather Alert: Heavy rains predicted across coastal
+                        areas for the next 48 hours.</a></span>
+                <span class="ticker-item"><a href="404.html">📈 Tech Stock Surge: Global markets hit record highs today
+                        morning.</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Stories / Spotlight Section -->
+    <section class="top-stories-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>Top <span>Stories</span></h2>
+        </div>
+
+        <div class="spotlight-grid">
+            <!-- Main Highlighted News (Left Side) - Slides in from left -->
+            <a href="404.html" class="news-card main-card" data-aos="fade-down" data-aos-duration="1000">
+                <img src="./asset/ne1.webp" alt="Main Story">
+                <div class="card-overlay">
+                    <span class="category-tag tag-blue">Global News</span>
+                    <h3 class="card-title">The Future of Digital Media: How 2026 is Reshaping the Global News Landscape
+                    </h3>
+                    <div class="card-meta">
+                        <span>By Editor</span> &bull; <span>July 5, 2026</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Side News Column (Right Side) -->
+            <div class="side-news-wrapper">
+                <!-- Side News 1 - Slides in from right with a slight delay -->
+                <a href="404.html" class="news-card side-card" data-aos="fade-up" data-aos-duration="800"
+                    data-aos-delay="200">
+                    <img src="./asset/ne2.webp" alt="Tech Story">
+                    <div class="card-overlay">
+                        <span class="category-tag tag-red">Technology</span>
+                        <h3 class="card-title">Next-Gen Microchips Hit the Market with Record Speeds</h3>
+                        <div class="card-meta">
+                            <span>July 5, 2026</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Side News 2 - Slides in from right with more delay for staggered effect -->
+                <a href="404.html" class="news-card side-card" data-aos="fade-up" data-aos-duration="800"
+                    data-aos-delay="400">
+                    <img src="./asset/ne3.webp" alt="Sports Story">
+                    <div class="card-overlay">
+                        <span class="category-tag tag-orange">Sports</span>
+                        <h3 class="card-title">Championship Finals: The Underdog Team Takes Home the Trophy</h3>
+                        <div class="card-meta">
+                            <span>July 4, 2026</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Now Section -->
+    <section class="trending-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-down" data-aos-duration="800">
+            <h2>🔥 Trending <span>Now</span></h2>
+        </div>
+
+        <!-- Swipeable Container -->
+        <div class="trending-carousel" id="trending-slider">
+
+            <!-- Trending Card 1 - First to appear -->
+            <div class="trending-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="card-img-wrapper">
+                    <img src="./asset/ne4.webp" alt="Finance">
+                    <span class="trending-rank">#1</span>
+                </div>
+                <div class="trending-content">
+                    <span class="category-text text-blue">Finance</span>
+                    <h4><a href="404.html">Crypto Markets see a sudden 15% spike this week</a></h4>
+                    <div class="trending-meta">12K Shares &bull; 2h ago</div>
+                </div>
+            </div>
+
+            <!-- Trending Card 2 - Appears shortly after Card 1 -->
+            <div class="trending-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="250">
+                <div class="card-img-wrapper">
+                    <img src="./asset/ne5.webp" alt="Social Media">
+                    <span class="trending-rank">#2</span>
+                </div>
+                <div class="trending-content">
+                    <span class="category-text text-red">Tech</span>
+                    <h4><a href="404.html">New privacy laws: What it means for your data</a></h4>
+                    <div class="trending-meta">8.5K Shares &bull; 4h ago</div>
+                </div>
+            </div>
+
+            <!-- Trending Card 3 - Appears shortly after Card 2 -->
+            <div class="trending-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <div class="card-img-wrapper">
+                    <img src="./asset/ne6.webp" alt="Sports">
+                    <span class="trending-rank">#3</span>
+                </div>
+                <div class="trending-content">
+                    <span class="category-text text-orange">Sports</span>
+                    <h4><a href="404.html">Olympic committee announces new games for 2028</a></h4>
+                    <div class="trending-meta">5K Shares &bull; 5h ago</div>
+                </div>
+            </div>
+
+            <!-- Trending Card 4 - Last to appear -->
+            <div class="trending-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="550">
+                <div class="card-img-wrapper">
+                    <img src="./asset/ne7.webp" alt="Travel">
+                    <span class="trending-rank">#4</span>
+                </div>
+                <div class="trending-content">
+                    <span class="category-text text-blue">Lifestyle</span>
+                    <h4><a href="404.html">Top 10 hidden travel destinations to visit this year</a></h4>
+                    <div class="trending-meta">3.2K Shares &bull; 6h ago</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Latest News / Just In Section -->
+    <section class="latest-news-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>Latest <span>News</span> / Just In</h2>
+        </div>
+
+        <div class="latest-news-list">
+
+            <!-- News Item 1 - First to appear -->
+            <article class="latest-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="latest-img">
+                    <img src="./asset/ne8.webp" alt="News Image">
+                </div>
+                <div class="latest-content">
+                    <div class="latest-meta">
+                        <span class="category-text text-red">Politics</span>
+                        <span class="time-stamp">10 mins ago</span>
+                    </div>
+                    <h3><a href="404.html">State Assembly elections announced for next month</a></h3>
+                    <p>The election commission has officially released the dates for the upcoming assembly elections,
+                        sparking massive political campaigns across the state.</p>
+                    <a href="404.html" class="read-more">Read Article <span>&rarr;</span></a>
+                </div>
+            </article>
+
+            <!-- News Item 2 - Appears shortly after Item 1 -->
+            <article class="latest-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="250">
+                <div class="latest-img">
+                    <img src="./asset/ne9.webp" alt="News Image">
+                </div>
+                <div class="latest-content">
+                    <div class="latest-meta">
+                        <span class="category-text text-blue">Space</span>
+                        <span class="time-stamp">45 mins ago</span>
+                    </div>
+                    <h3><a href="404.html">ISRO successfully launches new weather satellite</a></h3>
+                    <p>The new generation satellite will provide highly accurate weather forecasts and real-time data
+                        for disaster management.</p>
+                    <a href="404.html" class="read-more">Read Article <span>&rarr;</span></a>
+                </div>
+            </article>
+
+            <!-- News Item 3 - Appears shortly after Item 2 -->
+            <article class="latest-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <div class="latest-img">
+                    <img src="./asset/ne10.webp" alt="News Image">
+                </div>
+                <div class="latest-content">
+                    <div class="latest-meta">
+                        <span class="category-text text-orange">Entertainment</span>
+                        <span class="time-stamp">2 hours ago</span>
+                    </div>
+                    <h3><a href="404.html">Award-winning director announces his next mega project</a></h3>
+                    <p>Fans are thrilled as the highly anticipated action-thriller goes on floors next week with a
+                        star-studded cast.</p>
+                    <a href="404.html" class="read-more">Read Article <span>&rarr;</span></a>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Load More Button Animation -->
+        <div class="load-more-container" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="500">
+            <button class="load-more-btn" id="loadMoreBtn">Load More News</button>
+        </div>
+    </section>
+    <!-- Politics & Current Affairs Section -->
+    <section class="politics-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>🏛️ Politics <span>&</span> Current Affairs</h2>
+        </div>
+
+        <div class="politics-container">
+
+            <!-- Left Side: Featured Political News - Slides in from left -->
+            <article class="politics-featured" data-aos="fade-down" data-aos-duration="1000">
+                <div class="featured-img-wrapper">
+                    <img src="./asset/ne12.webp" alt="Politics Featured">
+                    <span class="category-badge">National</span>
+                </div>
+                <div class="featured-content">
+                    <h3><a href="404.html">Parliament Monsoon Session Begins: Key Bills on the Agenda</a></h3>
+                    <p>The monsoon session of Parliament commenced today with heated debates expected on the new
+                        infrastructure development bill and budget allocations for rural sectors.</p>
+                    <div class="meta-info">By Senior Correspondent &bull; 3 hours ago</div>
+                </div>
+            </article>
+
+            <!-- Right Side: List of Smaller News Items -->
+            <div class="politics-list">
+
+                <!-- List Item 1 - Slides in from right -->
+                <article class="politics-list-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="list-item-img">
+                        <img src="./asset/ne13.webp" alt="State News">
+                    </div>
+                    <div class="list-item-content">
+                        <span class="small-tag text-blue">State</span>
+                        <h4><a href="404.html">Chief Minister announces new welfare scheme for farmers</a></h4>
+                        <span class="time-stamp">5 hours ago</span>
+                    </div>
+                </article>
+
+                <!-- List Item 2 - Slides in from right with delay -->
+                <article class="politics-list-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="list-item-img">
+                        <img src="./asset/ne14.webp" alt="Global News">
+                    </div>
+                    <div class="list-item-content">
+                        <span class="small-tag text-red">Global</span>
+                        <h4><a href="404.html">G20 Summit 2026: Climate change takes center stage</a></h4>
+                        <span class="time-stamp">7 hours ago</span>
+                    </div>
+                </article>
+
+                <!-- List Item 3 - Slides in from right with more delay -->
+                <article class="politics-list-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                    <div class="list-item-img">
+                        <img src="./asset/ne15.webp" alt="Policy News">
+                    </div>
+                    <div class="list-item-content">
+                        <span class="small-tag text-orange">Policy</span>
+                        <h4><a href="404.html">Supreme Court reserves order on the landmark privacy case</a></h4>
+                        <span class="time-stamp">12 hours ago</span>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Business & Technology Section -->
+    <section class="biz-tech-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>💼 Business <span>&</span> Technology</h2>
+        </div>
+
+        <div class="biz-tech-grid">
+
+            <!-- Left Column: 2 Small Cards - Slides in from left -->
+            <div class="biz-column side-column" data-aos="fade-down" data-aos-duration="800" data-aos-delay="200">
+                <a href="404.html" class="biz-card small-card">
+                    <div class="biz-img-box">
+                        <img src="./asset/ne17.webp" alt="Tech News">
+                        <span class="biz-tag tag-red">Gadgets</span>
+                    </div>
+                    <div class="biz-content">
+                        <h4>New AR Glasses launched: A complete review</h4>
+                        <span class="biz-time">3h ago</span>
+                    </div>
+                </a>
+
+                <a href="404.html" class="biz-card small-card">
+                    <div class="biz-img-box">
+                        <img src="./asset/ne18.webp" alt="Social Media">
+                        <span class="biz-tag tag-blue">Social Media</span>
+                    </div>
+                    <div class="biz-content">
+                        <h4>Top platforms update algorithms to curb fake news</h4>
+                        <span class="biz-time">5h ago</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Center Column: 1 Large Main Card - Slides up from bottom -->
+            <div class="biz-column center-column" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <a href="404.html" class="biz-card large-card">
+                    <div class="biz-img-box">
+                        <img src="./asset/ne19.webp" alt="AI Tech">
+                        <span class="biz-tag tag-orange">AI & Future</span>
+                    </div>
+                    <div class="biz-content overlay-content">
+                        <h3>Generative AI in 2026: How it's reshaping the global workforce and economy</h3>
+                        <p>An in-depth look at the industries most affected by the latest advancements in artificial
+                            intelligence.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Right Column: 2 Small Cards - Slides in from right -->
+            <div class="biz-column side-column" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                <a href="404.html" class="biz-card small-card">
+                    <div class="biz-img-box">
+                        <img src="./asset/ne20.webp" alt="Stock Market">
+                        <span class="biz-tag tag-blue">Markets</span>
+                    </div>
+                    <div class="biz-content">
+                        <h4>Sensex hits new high amidst tech rally</h4>
+                        <span class="biz-time">1h ago</span>
+                    </div>
+                </a>
+
+                <a href="404.html" class="biz-card small-card">
+                    <div class="biz-img-box">
+                        <img src="./asset/ne4.webp" alt="Startup">
+                        <span class="biz-tag tag-orange">Startups</span>
+                    </div>
+                    <div class="biz-content">
+                        <h4>Local EV startup secures $50M in Series B funding</h4>
+                        <span class="biz-time">6h ago</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sports Arena Section -->
+    <section class="sports-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>🏏 Sports <span>Arena</span></h2>
+        </div>
+
+        <!-- Live Scores Horizontal Scroll -->
+        <div class="live-scores-container">
+
+            <!-- Score Card 1 - Slides in from left -->
+            <div class="score-card border-red" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="score-header">
+                    <span class="tournament">T20 World Cup</span>
+                    <span class="live-badge"><span class="blink-dot"></span> LIVE</span>
+                </div>
+                <div class="teams-score">
+                    <div class="team">
+                        <strong>IND</strong>
+                        <span>185/4 (18.2)</span>
+                    </div>
+                    <div class="team">
+                        <strong>AUS</strong>
+                        <span>Yet to bat</span>
+                    </div>
+                </div>
+                <div class="match-status">IND won the toss and elected to bat</div>
+            </div>
+
+            <!-- Score Card 2 - Slides in from left (with delay) -->
+            <div class="score-card border-blue" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <div class="score-header">
+                    <span class="tournament">Premier League</span>
+                    <span class="status-badge">FT</span>
+                </div>
+                <div class="teams-score">
+                    <div class="team">
+                        <strong>ARS</strong>
+                        <span>2</span>
+                    </div>
+                    <div class="team">
+                        <strong>MCI</strong>
+                        <span>1</span>
+                    </div>
+                </div>
+                <div class="match-status">Arsenal wins by 1 goal</div>
+            </div>
+
+            <!-- Score Card 3 - Slides in from left (with more delay) -->
+            <div class="score-card border-orange" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                <div class="score-header">
+                    <span class="tournament">Wimbledon Final</span>
+                    <span class="live-badge"><span class="blink-dot"></span> LIVE</span>
+                </div>
+                <div class="teams-score">
+                    <div class="team">
+                        <strong>C. Alcaraz</strong>
+                        <span>6 4 3</span>
+                    </div>
+                    <div class="team">
+                        <strong>N. Djokovic</strong>
+                        <span>4 6 2</span>
+                    </div>
+                </div>
+                <div class="match-status">Set 3 in progress</div>
+            </div>
+
+        </div> <!-- End Live Scores -->
+
+        <!-- Sports News Grid -->
+        <div class="sports-news-grid">
+
+            <!-- Large Sports News - Slides in from left -->
+            <a href="404.html" class="sports-card large-sports" data-aos="fade-down" data-aos-duration="800"
+                data-aos-delay="200">
+                <div class="sports-img">
+                    <img src="./asset/sp1.webp" alt="Olympics">
+                    <span class="sports-tag">Olympics 2026</span>
+                </div>
+                <div class="sports-info">
+                    <h3>Athletes gear up for the biggest sporting event of the year</h3>
+                    <p>Preparations are in full swing as countries finalize their contingents for the upcoming summer
+                        games.</p>
+                    <div class="sports-meta">By Sports Desk &bull; 2h ago</div>
+                </div>
+            </a>
+
+            <!-- Small Sports News 1 - Slides in from right -->
+            <a href="404.html" class="sports-card small-sports" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="400">
+                <div class="sports-img">
+                    <img src="./asset/sp2.webp" alt="Cricket">
+                    <span class="sports-tag">Cricket</span>
+                </div>
+                <div class="sports-info">
+                    <h4>Star player announces retirement from test cricket</h4>
+                </div>
+            </a>
+
+            <!-- Small Sports News 2 - Slides in from right (with delay) -->
+            <a href="404.html" class="sports-card small-sports" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="600">
+                <div class="sports-img">
+                    <img src="./asset/sp3.webp" alt="Football">
+                    <span class="sports-tag">Football</span>
+                </div>
+                <div class="sports-info">
+                    <h4>Record-breaking transfer deal finalized for top striker</h4>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Entertainment & Lifestyle Section -->
+    <section class="ent-section">
+        <!-- Header Animation -->
+        <div class="section-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>🎬 Entertainment <span>&</span> Lifestyle</h2>
+        </div>
+
+        <div class="ent-grid">
+
+            <!-- Left: Tall Card (Cinema/Movies) - Slides in from left -->
+            <a href="404.html" class="ent-card tall-card" data-aos="fade-down" data-aos-duration="800"
+                data-aos-delay="200">
+                <img src="./asset/em1.webp" alt="Cinema">
+                <div class="ent-overlay">
+                    <span class="ent-tag bg-red">Cinema</span>
+                    <h3>Blockbuster Alert: First look of the most anticipated movie of the year is out!</h3>
+                    <div class="ent-meta">By Cinema Desk &bull; 4h ago</div>
+                </div>
+            </a>
+
+            <!-- Right Top: Wide Card (Fashion) - Slides in from right -->
+            <a href="404.html" class="ent-card wide-card" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="400">
+                <img src="./asset/em2.webp" alt="Fashion">
+                <div class="ent-overlay">
+                    <span class="ent-tag bg-orange">Fashion</span>
+                    <h3>Summer Collection 2026: Trends you need to watch out for</h3>
+                    <div class="ent-meta">By Lifestyle Editor &bull; 6h ago</div>
+                </div>
+            </a>
+
+            <!-- Right Bottom: Wide Card (Health & Wellness) - Slides in from right with delay -->
+            <a href="404.html" class="ent-card wide-card" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="600">
+                <img src="./asset/em3.webp" alt="Wellness">
+                <div class="ent-overlay">
+                    <span class="ent-tag bg-blue">Wellness</span>
+                    <h3>Mindfulness in the Digital Age: 5 habits for a stress-free life</h3>
+                    <div class="ent-meta">By Health Team &bull; 10h ago</div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Editor's Choice / Exclusive Section -->
+    <section class="editor-choice-section">
+        <!-- Header Animation -->
+        <div class="editor-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>💎 Editor's <span>Choice</span> / Exclusive</h2>
+            <p>In-depth analysis, exclusive interviews, and premium content curated just for you.</p>
+        </div>
+
+        <div class="editor-grid">
+
+            <!-- Editor's Pick 1 - Fades up first -->
+            <a href="404.html" class="editor-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="editor-img">
+                    <img src="./asset/em4.webp" alt="Data Science">
+                    <div class="exclusive-badge">⭐ Exclusive</div>
+                </div>
+                <div class="editor-content">
+                    <span class="editor-tag">Deep Dive</span>
+                    <h3>The Data Revolution: How hyper-personalization is changing the way we consume media</h3>
+                    <p>An exclusive report on the algorithms shaping our digital reality in 2026, and what privacy
+                        experts have to say about it.</p>
+                    <div class="editor-author">
+                        <img src="./asset/em5.webp" alt="Author" class="author-img">
+                        <div class="author-info">
+                            <strong>Rajiv Menon</strong>
+                            <span>Senior Tech Editor</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Editor's Pick 2 - Fades up with a slight delay -->
+            <a href="404.html" class="editor-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <div class="editor-img">
+                    <img src="./asset/em6.webp" alt="Interview">
+                    <div class="exclusive-badge">🎙️ Interview</div>
+                </div>
+                <div class="editor-content">
+                    <span class="editor-tag">Conversations</span>
+                    <h3>"Sustainability is no longer a choice, it's a mandate" - CEO of Global Motors</h3>
+                    <p>We sit down with the visionary leader to discuss the transition to 100% electric fleets and the
+                        challenges ahead.</p>
+                    <div class="editor-author">
+                        <img src="./asset/em7.webp" alt="Author" class="author-img">
+                        <div class="author-info">
+                            <strong>Anita Desai</strong>
+                            <span>Chief Business Correspondent</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+    <!-- Video Gallery & Podcasts Section -->
+    <section class="media-section">
+        <!-- Header Animation -->
+        <div class="section-header dark-header" data-aos="fade-up" data-aos-duration="800">
+            <h2>▶️ Video <span>Gallery</span> & Podcasts</h2>
+            <p>Watch latest news coverage, exclusive interviews, and listen to our top podcasts.</p>
+        </div>
+
+        <div class="media-grid">
+
+            <!-- Main Featured Video (Left) - Slides in from left -->
+            <div class="media-card main-video" data-aos="fade-down" data-aos-duration="800" data-aos-delay="200"
+                onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <a href="404.html" class="media-img">
+                    <img src="./asset/em8.webp" alt="Main Video">
+                    <div class="play-btn-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <span class="duration-badge">12:45</span>
+                </a>
+                <div class="media-content">
+                    <span class="media-tag bg-red">Breaking Report</span>
+                    <h3>Exclusive Ground Report: The rapid rise of Smart Cities in 2026</h3>
+                    <div class="media-meta">150K Views &bull; 1 day ago</div>
+                </div>
+            </div>
+
+            <!-- Side Media Column (Right) -->
+            <div class="media-side-column">
+
+                <!-- Podcast / Video 1 - Slides in from right -->
+                <div class="media-card small-media" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400"
+                    onclick="openVideoModal('https://www.youtube.com/embed/tgbNymZ7vqY')">
+                    <a href="404.html" class="media-img">
+                        <img src="./asset/em9.webp" alt="Podcast">
+                        <div class="play-btn-overlay small-play">
+                            <div class="play-icon">🎧</div>
+                        </div>
+                        <span class="duration-badge">45:20</span>
+                    </a>
+                    <div class="media-content">
+                        <span class="media-tag bg-blue">Podcast</span>
+                        <h4>Tech Talk: Navigating the new AI regulations</h4>
+                        <div class="media-meta">50K Listens &bull; 2 days ago</div>
+                    </div>
+                </div>
+
+                <!-- Podcast / Video 2 - Slides in from right with more delay -->
+                <div class="media-card small-media" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600"
+                    onclick="openVideoModal('https://www.youtube.com/embed/tgbNymZ7vqY')">
+                    <a href="404.html" class="media-img">
+                        <img src="./asset/em10.webp" alt="Entertainment Video">
+                        <div class="play-btn-overlay small-play">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <span class="duration-badge">08:15</span>
+                    </a>
+                    <div class="media-content">
+                        <span class="media-tag bg-orange">Entertainment</span>
+                        <h4>Red Carpet highlights from the global music awards</h4>
+                        <div class="media-meta">85K Views &bull; 5 hours ago</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Video Modal (Popup) - Kept as is without AOS since it toggles on click -->
+        <div id="videoModal" class="video-modal">
+            <div class="modal-content">
+                <span class="close-modal"></span>
+                <a href="404.html" class="iframe-container">
+                    <iframe id="videoPlayer" src="" frameborder="0" allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter & Footer Section -->
+    <footer class="site-footer">
+
+        <!-- Floating Newsletter Box -->
+        <div class="newsletter-wrapper">
+            <div class="newsletter-card">
+                <div class="nl-content">
+                    <h2>📬 Get the Latest News Daily!</h2>
+                    <p>Don't miss out on breaking news, exclusive interviews, and daily updates.</p>
+                </div>
+
+                <!-- Form Starts Here -->
+                <div class="form-container">
+                    <form class="nl-form" id="newsletterForm" novalidate>
+                        <input type="email" id="nl-email" placeholder="Enter your email address...">
+                        <button type="submit" class="nl-btn">Subscribe</button>
+                    </form>
+                    <!-- Message Output Box -->
+                    <div id="nl-message" class="nl-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Footer Content -->
+        <div class="footer-container">
+
+            <!-- Column 1: Brand -->
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo-container">
+                    <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+                </a>
+                <p>Your trusted source for breaking news, in-depth analysis, and exclusive stories from around the
+                    globe.</p>
+                <div class="social-links">
+                    <a href="404.html" title="Facebook">FB</a>
+                    <a href="404.html" title="Twitter">TW</a>
+                    <a href="404.html" title="Instagram">IG</a>
+                    <a href="404.html" title="YouTube">YT</a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="404.html">About Us</a></li>
+                    <li><a href="404.html">Advertise with us</a></li>
+                    <li><a href="404.html">Careers</a></li>
+                    <li><a href="404.html">Privacy Policy</a></li>
+                    <li><a href="404.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Categories -->
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="404.html">Politics & National</a></li>
+                    <li><a href="404.html">Business & Tech</a></li>
+                    <li><a href="404.html">Sports Arena</a></li>
+                    <li><a href="404.html">Entertainment</a></li>
+                    <li><a href="404.html">Health & Lifestyle</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Contact -->
+            <div class="footer-col contact-col">
+                <h4>Contact Us</h4>
+                <p>📍 123, Main Street, Salem, Tamil Nadu, 636001, India.</p>
+                <p>📞 +91 98765 43210</p>
+                <p>✉️ editor@magnews.com</p>
+            </div>
+
+        </div>
+
+        <!-- Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 MagNews. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        const ticker = document.getElementById('ticker-content');
+
+        // Mobile screens-la touch panna text pause aagum, release panna thirumba odum
+        ticker.addEventListener('touchstart', () => {
+            ticker.style.animationPlayState = 'paused';
+        });
+
+        ticker.addEventListener('touchend', () => {
+            ticker.style.animationPlayState = 'running';
+        });
+
+        const slider = document.getElementById('trending-slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // When mouse is clicked down
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        // When mouse leaves the slider area
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+
+        // When mouse is released
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+
+        // When dragging the mouse
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // Scroll speed multiplier
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+        loadMoreBtn.addEventListener('click', function () {
+            // Change text to show loading state
+            this.innerHTML = "Loading... ⏳";
+
+            // Simulate fetching data for 1.5 seconds
+            setTimeout(() => {
+                this.innerHTML = "Load More News";
+                // Here you would normally append new HTML articles to the .latest-news-list
+                alert("More news loaded!"); // Just a test alert
+            }, 1500);
+        });
+
+        // Get modal elements
+        const videoModal = document.getElementById('videoModal');
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        // Function to open the modal and set the video URL
+        function openVideoModal(videoUrl) {
+            videoPlayer.src = videoUrl + "?autoplay=1"; // Auto-plays the video
+            videoModal.style.display = 'flex'; // Shows the modal
+        }
+
+        // Function to close the modal and stop the video
+        function closeVideoModal() {
+            videoModal.style.display = 'none';
+            videoPlayer.src = ""; // Clears the src to stop the video from playing in background
+        }
+
+        // Close the modal if the user clicks anywhere outside the video area
+        window.addEventListener('click', function (event) {
+            if (event.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+
+        AOS.init({
+            once: true, /* Animation happens only once when scrolling down */
+            offset: 100 /* Triggers animation slightly before the element is fully in view */
+        });
+    </script>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

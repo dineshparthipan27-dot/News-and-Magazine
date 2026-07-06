@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CityTransit Bus Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* Bus Transport Theme Colors */
+            --primary-color: #2563EB; /* Royal Blue */
+            --primary-light: #dbeafe;
+            --primary-dark: #1e3a8a;
+            --secondary-color: #F59E0B; /* Amber/Yellow */
+
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-color: #f8fafc;
+            
+            /* Sidebar Colors */
+            --sidebar-bg: #0f172a; 
+            --sidebar-text: #94a3b8;
+            --sidebar-hover: #1e293b;
+            
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body { background-color: var(--bg-color); color: var(--text-dark); overflow-x: hidden; }
+
+        .dashboard-container { display: flex; min-height: 100vh; width: 100%; }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px; background-color: var(--sidebar-bg); display: flex; flex-direction: column;
+            justify-content: space-between; transition: transform 0.3s ease; z-index: 1000;
+            position: fixed; height: 100vh; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); z-index: 999; backdrop-filter: blur(3px);
+        }
+        .sidebar-overlay.active { display: block; }
+
+        .sidebar-header {
+            padding: 25px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); background: #020617; color: white;
+        }
+
+        .logo-da {
+            display: flex; align-items: center; gap: 10px; color: #FFFFFF; font-size: 22px;
+            font-weight: 900; letter-spacing: 1px;
+        }
+        .logo-da i { color: var(--secondary-color); font-size: 24px; }
+
+        .close-btn { display: none; background: none; border: none; font-size: 24px; color: #ffffff; cursor: pointer; }
+
+        .sidebar-menu { list-style: none; padding: 20px 0; }
+        .menu-link {
+            display: flex; align-items: center; gap: 15px; padding: 14px 25px; color: var(--sidebar-text);
+            text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s ease;
+            border-left: 4px solid transparent; cursor: pointer;
+        }
+        .menu-link i { font-size: 18px; width: 25px; text-align: center; }
+        .menu-link:hover { background-color: var(--sidebar-hover); color: #FFFFFF; }
+        .menu-link.active {
+            background-color: rgba(37, 99, 235, 0.15); color: #FFFFFF; border-left: 4px solid var(--primary-color);
+        }
+        .menu-link.active i { color: var(--primary-color); }
+
+        .sidebar-bottom { padding: 15px 0 25px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+        .logout-btn { color: #ef4444; }
+        .logout-btn:hover { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; border-left: 4px solid #ef4444; }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1; display: flex; flex-direction: column; margin-left: 260px;
+            min-height: 100vh; width: calc(100% - 260px);
+        }
+
+        .top-header {
+            background-color: #fff; padding: 20px 30px; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0;
+            z-index: 998; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .menu-toggle {
+            display: none; background: var(--primary-light); color: var(--primary-color);
+            border: none; padding: 10px 12px; border-radius: 8px; font-size: 20px; cursor: pointer;
+        }
+
+        .greeting h1 { font-size: 24px; color: var(--text-dark); font-weight: 800; }
+        .welcome-name { color: var(--text-muted); font-weight: 600; font-size: 18px; }
+
+        .user-profile { display: flex; align-items: center; gap: 12px; text-align: right; }
+        .user-role { font-size: 12px; color: var(--primary-color); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+        .user-email { font-size: 14px; color: var(--text-dark); font-weight: 700; display: block; }
+        .user-avatar i { font-size: 40px; color: var(--primary-color); }
+
+        /* --- VIEWS & ANIMATIONS --- */
+        .view-section { display: none; padding: 30px; animation: fadeIn 0.4s ease-in-out; flex-direction: column; gap: 30px; }
+        .view-section.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-title {
+            font-size: 19px; margin-bottom: 20px; color: var(--text-dark);
+            border-left: 5px solid var(--primary-color); padding-left: 12px; font-weight: 800;
+        }
+
+        .scroll-anim { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .scroll-anim.show { opacity: 1; transform: translateY(0); }
+
+        /* --- CARDS & STATS --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+        
+        .stat-card {
+            background: var(--card-bg); border-radius: 16px; padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); border: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 20px; transition: transform 0.3s ease;
+        }
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+
+        .stat-icon {
+            width: 65px; height: 65px; border-radius: 14px; display: flex; justify-content: center;
+            align-items: center; font-size: 26px; flex-shrink: 0;
+        }
+
+        .stat-details h3 { font-size: 26px; margin-bottom: 4px; color: var(--text-dark); font-weight: 900; }
+        .stat-details p { font-size: 13px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .content-box {
+            background: var(--card-bg); border-radius: 16px; padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); border: 1px solid var(--border-color); width: 100%;
+        }
+
+        .two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .chart-container { position: relative; height: 350px; width: 100%; }
+
+        /* --- FORMS & VALIDATION --- */
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 10px;
+            outline: none; font-size: 14px; font-family: inherit; transition: 0.3s;
+        }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: var(--primary-color); background-color: #f8fafc; box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .error-msg { color: #ef4444; font-size: 12px; margin-top: 5px; display: none; font-weight: 700; }
+        .input-error { border-color: #ef4444 !important; }
+
+        .success-msg {
+            color: #166534; background: #dcfce7; padding: 15px; border-radius: 8px; margin-bottom: 20px;
+            font-size: 14px; font-weight: 700; display: none; text-align: center; border: 1px solid #bbf7d0;
+        }
+
+        .main-btn {
+            background: var(--primary-color); color: white; padding: 14px 24px; width: 100%; font-size: 15px;
+            font-weight: 700; border: none; border-radius: 10px; margin-top: 10px; cursor: pointer; transition: 0.3s;
+        }
+        .main-btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3); }
+        
+        .action-btn { background: var(--primary-light); color: var(--primary-color); border: none; padding: 8px 15px; border-radius: 8px; font-size: 12px; cursor: pointer; font-weight: 700;}
+        .action-btn:hover { background: var(--primary-color); color: #FFF; }
+
+        /* --- TIMELINE --- */
+        .timeline { margin-top: 20px; border-left: 3px solid #e2e8f0; padding-left: 25px; position: relative; }
+        .timeline-item { margin-bottom: 25px; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -33px; top: 0; width: 14px; height: 14px; border-radius: 50%;
+            background: var(--secondary-color); border: 3px solid #fff; box-shadow: 0 0 0 2px #e2e8f0;
+        }
+        .timeline-item h4 { font-size: 15px; color: var(--text-dark); margin-bottom: 5px; font-weight: 800; }
+        .timeline-item p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+        .time-badge { font-size: 11px; background: #f1f5f9; padding: 3px 8px; border-radius: 10px; font-weight: 700; color: #475569; margin-right: 5px; }
+
+        /* --- TABLE --- */
+        .table-container { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 600px; }
+        th, td { padding: 16px 15px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+        th { background-color: var(--bg-color); color: var(--text-dark); font-weight: 800; text-transform: uppercase; font-size: 12px; }
+        
+        .status { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .status.on-time { background: #dcfce7; color: #166534; }
+        .status.delayed { background: #fef9c3; color: #854d0e; }
+        .status.cancelled { background: #fee2e2; color: #991b1b; }
+        .status.boarding { background: var(--primary-light); color: var(--primary-dark); }
+        .text-muted { color: var(--text-muted); margin-right: 5px; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; }
+            .menu-toggle, .close-btn { display: block; }
+            .two-col-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 576px) {
+            .top-header { padding: 15px; }
+            .view-section { padding: 15px; gap: 20px; }
+            .user-info { display: none; }
+            .greeting h1 { font-size: 18px; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+
+        
+        .logo-img {
+            width: 150px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .logo-da {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo-da i {
+            font-size: 28px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-header">
+                       <div class="logo-da">
+                        <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+                    </div>
+                    <button class="close-btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li><a class="menu-link active" data-target="dashboard-view">
+                        <i class="fa-solid fa-chart-line"></i> Dashboard
+                    </a></li>
+                    <li><a class="menu-link" data-target="fleet-view">
+                        <i class="fa-solid fa-bus"></i> Fleet & Drivers
+                    </a></li>
+                    <li><a class="menu-link" data-target="routes-view">
+                        <i class="fa-solid fa-route"></i> Routes & Schedules
+                    </a></li>
+                    <li><a class="menu-link" data-target="tickets-view">
+                        <i class="fa-solid fa-ticket-simple"></i> Ticketing & Revenue
+                    </a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-bottom">
+                <a href="login.html" class="menu-link logout-btn">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="openSidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="greeting">
+                        <h1 id="page-title">Dashboard <span class="welcome-name">| Overview</span></h1>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <span class="user-role">Transport Manager</span>
+                            <span class="user-email">admin@citytransit.com</span>
+                        </div>
+                        <div class="user-avatar">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="dashboard-view" class="view-section active">
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary-color);">
+                            <i class="fa-solid fa-bus"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>124</h3>
+                            <p>Active Buses</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff7ed; color: #ea580c;">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>8.5K</h3>
+                            <p>Today's Passengers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #dcfce7; color: #166534;">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>$42,800</h3>
+                            <p>Revenue Generated</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Passenger Traffic (Live)</h2>
+                    <div class="chart-container">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <div id="fleet-view" class="view-section">
+                
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fee2e2; color: #991b1b;">
+                            <i class="fa-solid fa-wrench"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>12</h3>
+                            <p>In Maintenance</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fef9c3; color: #854d0e;">
+                            <i class="fa-solid fa-gas-pump"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>08</h3>
+                            <p>Low Fuel Alerts</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="two-col-grid">
+                    <section class="content-box scroll-anim">
+                        <h2 class="section-title">Dispatch / Assign Bus</h2>
+                        
+                        <form id="dispatchForm" novalidate>
+                            <div id="formSuccess" class="success-msg">
+                                <i class="fa-solid fa-circle-check"></i> Bus Successfully Dispatched to Route!
+                            </div>
+
+                            <div class="input-group">
+                                <label>Select Bus ID</label>
+                                <select id="busIdSelect" required>
+                                    <option value="" selected disabled>Choose a Bus...</option>
+                                    <option value="bus101">Bus #101 (Volvo AC Seater)</option>
+                                    <option value="bus102">Bus #102 (Scania Sleeper)</option>
+                                    <option value="bus103">Bus #103 (Non-AC Standard)</option>
+                                </select>
+                                <div class="error-msg" id="busError">Please select a valid Bus ID.</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Assign Route</label>
+                                <select id="routeSelect" required>
+                                    <option value="" selected disabled>Select Route...</option>
+                                    <option value="routeA">Chennai to Bangalore (Night)</option>
+                                    <option value="routeB">Mumbai to Pune (Express)</option>
+                                    <option value="routeC">Delhi to Agra (Tourist)</option>
+                                </select>
+                                <div class="error-msg" id="routeError">Please assign a route.</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Assign Driver</label>
+                                <input type="text" id="driverInput" placeholder="Enter Driver Name or ID" required>
+                                <div class="error-msg" id="driverError">Driver details are required.</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Departure Time</label>
+                                <input type="time" id="timeInput" required>
+                                <div class="error-msg" id="timeError">Please select a departure time.</div>
+                            </div>
+
+                            <button type="submit" class="main-btn">
+                                <i class="fa-solid fa-paper-plane"></i> Dispatch Bus
+                            </button>
+                        </form>
+                    </section>
+
+                    <section class="content-box scroll-anim">
+                        <h2 class="section-title">Live Fleet Tracker</h2>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">14:30</span> Arrived at Checkpoint</h4>
+                                <p><strong>Bus #105</strong> reached <span style="color: var(--primary-color);">Coimbatore Terminus</span>. Preparing for next leg.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">14:15</span> Traffic Delay Alert</h4>
+                                <p>Driver <strong>Ramesh</strong> reported heavy traffic on Route 4. ETA delayed by 20 mins.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">13:45</span> Maintenance Done</h4>
+                                <p>Bus #42 cleared from the garage. Ready for dispatch.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">12:00</span> Trip Commenced</h4>
+                                <p>Bus #88 started journey from Bangalore to Hyderabad.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div id="routes-view" class="view-section">
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Active Routes & Schedules</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Route ID</th>
+                                    <th>Source - Destination</th>
+                                    <th>Bus Type</th>
+                                    <th>Departure</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>#RT-201</strong></td>
+                                    <td><i class="fa-solid fa-location-dot" style="color:var(--secondary-color);"></i> Chennai → Madurai</td>
+                                    <td>AC Sleeper</td>
+                                    <td><strong>21:30</strong></td>
+                                    <td><span class="status boarding">Boarding</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#RT-305</strong></td>
+                                    <td><i class="fa-solid fa-location-dot" style="color:var(--text-muted);"></i> Mumbai → Goa</td>
+                                    <td>Volvo Semi-Sleeper</td>
+                                    <td><strong>19:00</strong></td>
+                                    <td><span class="status on-time">On Time</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#RT-112</strong></td>
+                                    <td><i class="fa-solid fa-location-dot" style="color:var(--primary-color);"></i> Delhi → Jaipur</td>
+                                    <td>Non-AC Seater</td>
+                                    <td><strong>14:15</strong></td>
+                                    <td><span class="status delayed">Delayed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#RT-404</strong></td>
+                                    <td><i class="fa-solid fa-location-dot" style="color:var(--text-muted);"></i> Kochi → Trivandrum</td>
+                                    <td>Electric Bus</td>
+                                    <td><strong>08:00</strong></td>
+                                    <td><span class="status cancelled">Cancelled</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div id="tickets-view" class="view-section">
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary-color);">
+                            <i class="fa-solid fa-ticket"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>1,250</h3>
+                            <p>Tickets Sold Today</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e0e7ff; color: #4f46e5;">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>85%</h3>
+                            <p>Online Bookings</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fee2e2; color: #991b1b;">
+                            <i class="fa-solid fa-ban"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>18</h3>
+                            <p>Cancellations / Refunds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Recent Transactions</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Passenger Name</th>
+                                    <th>Route</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>#BK-9092</strong></td>
+                                    <td>Rajesh Kumar</td>
+                                    <td>Chennai → Bangalore</td>
+                                    <td><strong>$45.00</strong></td>
+                                    <td><a href="404.html" class="action-btn">View Ticket</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#BK-9093</strong></td>
+                                    <td>Anita Sharma</td>
+                                    <td>Mumbai → Pune</td>
+                                    <td><strong>$12.50</strong></td>
+                                    <td><a href="404.html" class="action-btn">View Ticket</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#BK-9094</strong></td>
+                                    <td>John Doe</td>
+                                    <td>Delhi → Agra</td>
+                                    <td><strong>$18.00</strong></td>
+                                    <td><a href="404.html" class="action-btn" style="background: #fee2e2; color: #991b1b;">Issue Refund</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+
+        const emailValue = localStorage.getItem("UserMail");
+        const email = emailValue || "admin@nexus.ai";
+        const extractedName = email.split("@")[0];
+        const formattedName = extractedName.charAt(0).toUpperCase() + extractedName.slice(1);
+
+        document.querySelector(".user-email").textContent = email;
+        const welcomeEl = document.querySelector(".welcome-name");
+        if (welcomeEl) { welcomeEl.textContent = `| Welcome, ${formattedName} 👋`; }
+        // --- SIDEBAR LOGIC ---
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openSidebarBtn = document.getElementById('openSidebar');
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+
+        function openSidebar() { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeSidebar() { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        openSidebarBtn.addEventListener('click', openSidebar);
+        closeSidebarBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        // --- TAB SWITCHING ---
+        const menuLinks = document.querySelectorAll('.sidebar-menu .menu-link');
+        const views = document.querySelectorAll('.view-section');
+        const pageTitle = document.getElementById('page-title');
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                if (this.classList.contains('active')) return;
+                
+                menuLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                views.forEach(v => v.classList.remove('active'));
+
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+
+                // Update Title
+                let titleText = this.innerText.trim();
+                pageTitle.innerHTML = `${titleText} <span class="welcome-name">| Overview</span>`;
+
+                if (window.innerWidth <= 992) { closeSidebar(); }
+                triggerAnimations();
+            });
+        });
+
+        // --- CHART JS (Customized for Transport Traffic) ---
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '00:00'],
+                datasets: [{
+                    label: 'Passengers Boarded',
+                    data: [1200, 4500, 2100, 2800, 5200, 3100, 800],
+                    borderColor: '#2563EB', // Royal Blue
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#2563EB',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#e2e8f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // --- SCROLL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('show'); }
+            });
+        }, { threshold: 0.1 });
+
+        function triggerAnimations() {
+            const animElements = document.querySelectorAll('.scroll-anim');
+            animElements.forEach(el => {
+                el.classList.remove('show');
+                observer.observe(el);
+            });
+        }
+        triggerAnimations();
+
+        // --- FORM VALIDATION FOR BUS DISPATCH ---
+        document.getElementById('dispatchForm').addEventListener('submit', function (e) {
+            e.preventDefault(); 
+
+            const busIdSelect = document.getElementById('busIdSelect');
+            const routeSelect = document.getElementById('routeSelect');
+            const driverInput = document.getElementById('driverInput');
+            const timeInput = document.getElementById('timeInput');
+
+            const busError = document.getElementById('busError');
+            const routeError = document.getElementById('routeError');
+            const driverError = document.getElementById('driverError');
+            const timeError = document.getElementById('timeError');
+            const formSuccess = document.getElementById('formSuccess');
+
+            let isValid = true;
+
+            // Reset errors
+            busIdSelect.classList.remove('input-error');
+            routeSelect.classList.remove('input-error');
+            driverInput.classList.remove('input-error');
+            timeInput.classList.remove('input-error');
+            
+            busError.style.display = 'none';
+            routeError.style.display = 'none';
+            driverError.style.display = 'none';
+            timeError.style.display = 'none';
+            formSuccess.style.display = 'none';
+
+            if (busIdSelect.value === '') {
+                busIdSelect.classList.add('input-error');
+                busError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (routeSelect.value === '') {
+                routeSelect.classList.add('input-error');
+                routeError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (driverInput.value.trim().length < 3) {
+                driverInput.classList.add('input-error');
+                driverError.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (timeInput.value === '') {
+                timeInput.classList.add('input-error');
+                timeError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                formSuccess.style.display = 'block';
+                setTimeout(() => {
+                    this.reset();
+                    formSuccess.style.display = 'none';
+                    window.location.href = '404.html'
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

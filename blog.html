@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="news.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    
+    <nav class="navbar">
+        <!-- Logo Section -->
+        <a href="index.html" class="logo-container">
+            <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <a href="login.html" class="login-btn mob-view">Login</a>
+
+        </ul>
+
+        <!-- Login Button & Mobile Menu Icon -->
+        <div class="nav-right">
+            <a href="login.html" class="login-btn">Login</a>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="blog-hero-section">
+
+        <div class="blog-hero-bg"></div>
+
+        <div class="blog-hero-overlay"></div>
+
+        <div class="blog-hero-content">
+
+            <div class="blog-meta-row fade-up delay-1">
+                <span class="badge-breaking">
+                    <span class="pulse-dot"></span> Breaking News
+                </span>
+                <span class="read-time text-orange">⏳ 8 Min Read</span>
+            </div>
+
+            <h1 class="fade-up delay-2">
+                The Dawn of Quantum AI: How It's Reshaping the Global <span class="text-crimson">Economy</span>
+            </h1>
+
+            <p class="fade-up delay-3">
+                An exclusive deep-dive into the secretive labs building the next generation of artificial intelligence.
+                Discover what this technological leap means for global markets and your financial future.
+            </p>
+
+            <div class="author-action-row fade-up delay-4">
+
+                <div class="author-info">
+                    <img src="./asset/ma2.webp" alt="Sneha Reddy" class="author-avatar">
+                    <div class="author-details">
+                        <strong class="author-name">Sneha Reddy</strong>
+                        <span class="publish-date">July 5, 2026</span>
+                    </div>
+                </div>
+
+                <a href="404.html" class="btn-read-story">
+                    Read Full Story <span class="arrow-up-right">↗</span>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="trending-section" id="trendingSection">
+
+        <div class="live-ticker-wrapper">
+            <div class="ticker-label">
+                <span class="live-blink-dot"></span> LIVE
+            </div>
+            <div class="ticker-scroll-area">
+                <div class="ticker-track">
+                    <span class="ticker-item"><span class="text-crimson">BREAKING:</span> Global Markets Surge as Tech
+                        Stocks Rally 📈</span>
+                    <span class="ticker-item"><span class="text-orange">UPDATE:</span> New AI Regulations Announced by
+                        European Union 🤖</span>
+                    <span class="ticker-item"><span class="text-blue">SPORTS:</span> Historic Win at the Wimbledon
+                        Finals 🏆</span>
+                    <span class="ticker-item"><span class="text-crimson">BREAKING:</span> Global Markets Surge as Tech
+                        Stocks Rally 📈</span>
+                    <span class="ticker-item"><span class="text-orange">UPDATE:</span> New AI Regulations Announced by
+                        European Union 🤖</span>
+                    <span class="ticker-item"><span class="text-blue">SPORTS:</span> Historic Win at the Wimbledon
+                        Finals 🏆</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-section-header">
+            <h2>🔥 Trending <span class="text-crimson">Now</span></h2>
+            <p>The stories everyone is talking about today.</p>
+        </div>
+
+        <div class="trending-grid">
+
+            <article class="trend-card">
+                <div class="trend-img-wrapper">
+                    <span class="trend-rank bg-crimson">#1</span>
+                    <img src="./asset/ne4.webp" alt="Tech News">
+                </div>
+                <div class="trend-content">
+                    <span class="category-tag text-blue">Technology</span>
+                    <h3>The Future of Spatial Computing</h3>
+                    <p>How the latest VR headsets are replacing traditional office setups globally.</p>
+                    <div class="trend-meta">
+                        <span>By Arjun Prakash</span>
+                        <a href="404.html" class="read-link">Read <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="trend-card">
+                <div class="trend-img-wrapper">
+                    <span class="trend-rank bg-orange">#2</span>
+                    <img src="./asset/ne5.webp" alt="Finance News">
+                </div>
+                <div class="trend-content">
+                    <span class="category-tag text-orange">Finance</span>
+                    <h3>Crypto Markets Experience Sudden Shift</h3>
+                    <p>Bitcoin and Ethereum see massive movements after the latest policy changes.</p>
+                    <div class="trend-meta">
+                        <span>By Sneha Reddy</span>
+                        <a href="404.html" class="read-link">Read <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="trend-card">
+                <div class="trend-img-wrapper">
+                    <span class="trend-rank bg-blue">#3</span>
+                    <img src="./asset/ne7.webp" alt="Climate News">
+                </div>
+                <div class="trend-content">
+                    <span class="category-tag text-crimson">Environment</span>
+                    <h3>New Global Climate Treaty Signed</h3>
+                    <p>World leaders agree on aggressive carbon reduction goals for 2030.</p>
+                    <div class="trend-meta">
+                        <span>By Karthik Menon</span>
+                        <a href="404.html" class="read-link">Read <span>→</span></a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Explore by Pulse (Interactive Filters) Section -->
+    <section class="pulse-section" id="pulseSection">
+
+        <div class="blog-section-header">
+            <h2>🧭 Explore by <span class="text-blue">Pulse</span></h2>
+            <p>Filter your feed and read exactly what you love.</p>
+        </div>
+
+        <!-- The Filter Bar -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All News</button>
+            <button class="filter-btn" data-filter="tech">Technology</button>
+            <button class="filter-btn" data-filter="finance">Finance</button>
+            <button class="filter-btn" data-filter="politics">Politics</button>
+            <button class="filter-btn" data-filter="sports">Sports</button>
+        </div>
+
+        <!-- The Articles Grid (Pulse Board) -->
+        <div class="pulse-grid" id="pulseGrid">
+
+            <!-- Tech Article -->
+            <div class="pulse-card pulse-item tech">
+                <div class="card-left-border bg-blue"></div>
+                <span class="pulse-tag text-blue">Technology</span>
+                <h4>Next-Gen Silicon Chips Hit the Market</h4>
+                <div class="pulse-meta"><span>5 min read</span> • <span>Today</span></div>
+            </div>
+
+            <!-- Finance Article -->
+            <div class="pulse-card pulse-item finance">
+                <div class="card-left-border bg-orange"></div>
+                <span class="pulse-tag text-orange">Finance</span>
+                <h4>Stock Markets Rally Beyond Expectations</h4>
+                <div class="pulse-meta"><span>3 min read</span> • <span>2 hrs ago</span></div>
+            </div>
+
+            <!-- Politics Article -->
+            <div class="pulse-card pulse-item politics">
+                <div class="card-left-border bg-crimson"></div>
+                <span class="pulse-tag text-crimson">Politics</span>
+                <h4>Global Summit Reaches Historic Agreement</h4>
+                <div class="pulse-meta"><span>10 min read</span> • <span>Yesterday</span></div>
+            </div>
+
+            <!-- Tech Article 2 -->
+            <div class="pulse-card pulse-item tech">
+                <div class="card-left-border bg-blue"></div>
+                <span class="pulse-tag text-blue">Technology</span>
+                <h4>AI Startups Secure Record Funding</h4>
+                <div class="pulse-meta"><span>4 min read</span> • <span>5 hrs ago</span></div>
+            </div>
+
+            <!-- Sports Article -->
+            <div class="pulse-card pulse-item sports">
+                <div class="card-left-border bg-blue"></div>
+                <span class="pulse-tag text-blue">Sports</span>
+                <h4>Championship Finals: A Game to Remember</h4>
+                <div class="pulse-meta"><span>7 min read</span> • <span>1 hr ago</span></div>
+            </div>
+
+            <!-- Finance Article 2 -->
+            <div class="pulse-card pulse-item finance">
+                <div class="card-left-border bg-orange"></div>
+                <span class="pulse-tag text-orange">Finance</span>
+                <h4>Interest Rates Held Steady by Central Bank</h4>
+                <div class="pulse-meta"><span>6 min read</span> • <span>Today</span></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- The Editorial Feed (Main Article Grid) -->
+    <section class="editorial-feed-section" id="feedSection">
+
+        <div class="blog-section-header">
+            <h2>📰 The Editorial <span class="text-crimson">Feed</span></h2>
+            <p>In-depth analysis, breaking news, and expert opinions.</p>
+        </div>
+
+        <!-- The Bento Grid -->
+        <div class="bento-feed-grid">
+
+            <!-- Article 1: The Massive Featured Card (Span 2x2) -->
+            <article class="feed-card card-large">
+                <div class="feed-img-wrap">
+                    <img src="./asset/ne1.webp" alt="Data Analytics">
+                    <div class="hover-read-time">⏳ 10 Min Read</div>
+                    <div class="feed-overlay-content">
+                        <span class="category-pill bg-blue">Technology</span>
+                        <h3>The Rise of Data Monopolies in 2026</h3>
+                        <p>An exclusive look at how top tech firms are restructuring the global data economy.</p>
+                        <div class="feed-meta"><span>By Arjun Prakash</span> • <span>July 5, 2026</span></div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 2: Standard Card -->
+            <article class="feed-card card-standard">
+                <div class="feed-img-wrap">
+                    <img src="./asset/ne2.webp" alt="Economy">
+                    <div class="hover-read-time">⏳ 4 Min Read</div>
+                </div>
+                <div class="feed-text-content">
+                    <span class="category-text text-orange">Economy</span>
+                    <h4>Inflation Drops to Record Lows</h4>
+                    <div class="feed-meta-dark"><span>July 4, 2026</span></div>
+                </div>
+            </article>
+
+            <!-- Article 3: Standard Card -->
+            <article class="feed-card card-standard">
+                <div class="feed-img-wrap">
+                    <img src="./asset/ne3.webp" alt="Science">
+                    <div class="hover-read-time">⏳ 6 Min Read</div>
+                </div>
+                <div class="feed-text-content">
+                    <span class="category-text text-crimson">Science</span>
+                    <h4>Mars Colony Phase 2 Initiated</h4>
+                    <div class="feed-meta-dark"><span>July 3, 2026</span></div>
+                </div>
+            </article>
+
+            <!-- Article 4: Wide Horizontal Card (Span 2 columns) -->
+            <article class="feed-card card-wide">
+                <div class="feed-img-wrap wide-img">
+                    <img src="./asset/ne4.webp" alt="Workspace">
+                    <div class="hover-read-time">⏳ 8 Min Read</div>
+                </div>
+                <div class="feed-text-content wide-text">
+                    <span class="category-text text-blue">Work Culture</span>
+                    <h3>The 4-Day Workweek is Now a Global Standard</h3>
+                    <p>How companies adapted to the new corporate policy without losing productivity.</p>
+                    <div class="feed-meta-dark"><span>By Sneha Reddy</span> • <span>July 2, 2026</span></div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Load More Button -->
+        <div class="feed-action text-center mt-50">
+            <a href="404.html" class="btn-outline-dark">Load More Stories <span>↓</span></a>
+        </div>
+
+    </section>
+
+    <!-- Editor's Picks (Deep-Dives & Op-Eds) Section -->
+    <section class="editors-picks-section" id="editorsPicksSection">
+
+        <!-- Ambient Background Glow -->
+        <div class="ep-ambient-glow glow-crimson"></div>
+        <div class="ep-ambient-glow glow-blue"></div>
+
+        <div class="blog-section-header dark-header">
+            <span class="small-badge badge-glow">Highly Curated</span>
+            <h2>💎 Editor's <span class="text-orange">Picks</span></h2>
+            <p>Exclusive deep-dives, investigations, and expert opinions.</p>
+        </div>
+
+        <!-- Editor's Grid -->
+        <div class="ep-grid">
+
+            <!-- Pick 1: Deep Dive -->
+            <article class="ep-glass-card">
+                <div class="ep-img-wrap">
+                    <div class="ep-star-badge">★ Premium</div>
+                    <img src="./asset/em10.webp" alt="AI Chip">
+                </div>
+                <div class="ep-content">
+                    <span class="ep-category text-crimson">Deep-Dive</span>
+                    <h3>Inside the Secretive Lab Building the Next Supercomputer</h3>
+                    <p>A rare look into the multi-billion dollar facility that aims to achieve Artificial General
+                        Intelligence by 2028.</p>
+                    <div class="ep-author-row">
+                        <img src="./asset/ma1.webp" alt="Author">
+                        <div class="ep-author-info">
+                            <strong>Sneha Reddy</strong>
+                            <span>Chief Tech Editor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ep-hover-border"></div>
+            </article>
+
+            <!-- Pick 2: Op-Ed -->
+            <article class="ep-glass-card">
+                <div class="ep-img-wrap">
+                    <div class="ep-star-badge">★ Opinion</div>
+                    <img src="./asset/em4.webp" alt="Economy">
+                </div>
+                <div class="ep-content">
+                    <span class="ep-category text-orange">Op-Ed</span>
+                    <h3>Why the 4-Day Workweek is an Economic Necessity, Not a Perk</h3>
+                    <p>Productivity metrics from 50 global companies reveal a surprising truth about human endurance and
+                        corporate profit.</p>
+                    <div class="ep-author-row">
+                        <img src="./asset/ma2.webp" alt="Author">
+                        <div class="ep-author-info">
+                            <strong>Arjun Prakash</strong>
+                            <span>Finance Columnist</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ep-hover-border"></div>
+            </article>
+
+            <!-- Pick 3: Investigation -->
+            <article class="ep-glass-card">
+                <div class="ep-img-wrap">
+                    <div class="ep-star-badge">★ Investigation</div>
+                    <img src="./asset/em6.webp" alt="Global Trade">
+                </div>
+                <div class="ep-content">
+                    <span class="ep-category text-blue">Investigation</span>
+                    <h3>The Silent Cyber War Trillion-Dollar Supply Chains Face Daily</h3>
+                    <p>We tracked the digital footprints of state-sponsored hackers attacking global shipping routes.
+                    </p>
+                    <div class="ep-author-row">
+                        <img src="./asset/ma3.webp" alt="Author">
+                        <div class="ep-author-info">
+                            <strong>Karthik Menon</strong>
+                            <span>Senior Investigative Reporter</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ep-hover-border"></div>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="multimedia-section" id="multimediaSection">
+
+        <div class="blog-section-header text-white-header">
+            <span class="small-badge badge-blue-glow">Multimedia</span>
+            <h2>🎙️ Beyond <span class="text-orange">Text</span></h2>
+            <p>Watch our ground reports and listen to exclusive daily podcasts.</p>
+        </div>
+
+        <div class="media-grid">
+
+            <article class="media-card video-card-large">
+                <div class="media-thumbnail">
+                    <img src="./asset/em2.webp" alt="Video Report">
+                    <div class="media-duration">▶ 12:45</div>
+
+                    <a href="404.html" class="play-btn-glass">
+                        <span class="play-icon">▶</span>
+                    </a>
+                </div>
+                <div class="media-info">
+                    <span class="media-tag bg-crimson">Video Report</span>
+                    <h3>The Truth Behind the Global Energy Crisis</h3>
+                    <p>Our reporters travel to the heart of Europe to uncover the supply chain bottlenecks affecting
+                        millions.</p>
+                </div>
+            </article>
+
+            <div class="podcast-stack">
+
+                <article class="podcast-card">
+                    <a href="404.html" class="podcast-thumb">
+                        <img src="./asset/bl1.webp" alt="Podcast 1">
+                        <div class="audio-wave">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </a>
+                    <div class="podcast-info">
+                        <span class="media-tag bg-blue">Podcast • Ep 42</span>
+                        <h4>Navigating the AI Job Market</h4>
+                        <span class="host-name">🎤 Hosted by Karthik</span>
+                    </div>
+                </article>
+
+                <article class="podcast-card">
+                    <a href="404.html" class="podcast-thumb">
+                        <img src="./asset/ne10.webp" alt="Podcast 2">
+                        <div class="audio-wave">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </a>
+                    <div class="podcast-info">
+                        <span class="media-tag bg-orange">Podcast • Ep 41</span>
+                        <h4>Stock Market: The Weekend Wrap</h4>
+                        <span class="host-name">🎤 Hosted by Arjun</span>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Stay Ahead (Newsletter Takeover CTA) Section -->
+    <section class="newsletter-section" id="newsletterSection">
+
+        <!-- Ambient Floating Orbs -->
+        <div class="nl-glow orb-1"></div>
+        <div class="nl-glow orb-2"></div>
+
+        <div class="nl-container">
+
+            <!-- Animated Envelope Icon -->
+            <div class="nl-icon-wrapper">
+                <span class="nl-icon bounce-anim">📬</span>
+            </div>
+
+            <span class="small-badge badge-orange-glow">Stay Ahead of the Curve</span>
+
+            <h2 class="nl-title">Get The <span class="text-orange">Atka</span> Daily Brief</h2>
+            <p class="nl-desc">
+                Join 50,000+ executives and tech enthusiasts. Get the most crucial news, deep-dives, and market analysis
+                delivered straight to your inbox every morning. No spam, just pure journalism.
+            </p>
+
+            <!-- Interactive Glass Form -->
+            <!-- Stay Ahead Form with Custom Validation -->
+            <form class="nl-form" action="#" method="POST" id="newsletterForm" novalidate>
+                <div class="nl-input-group" id="nlInputGroup">
+                    <input type="email" id="nlEmail" class="nl-glass-input" placeholder="Enter your email address..."
+                        required>
+                    <button type="submit" class="btn-nl-submit" id="nlSubmitBtn">
+                        <span class="nl-btn-text">Subscribe Now</span> <span class="nl-arrow">↗</span>
+                    </button>
+                </div>
+
+                <!-- Error Message Container -->
+                <div class="nl-error-msg" id="nlError"></div>
+
+
+            </form>
+
+        </div>
+    </section>
+
+
+
+
+    <footer class="site-footer">
+
+        <!-- Floating Newsletter Box -->
+        <div class="newsletter-wrapper">
+            <div class="newsletter-card">
+                <div class="nl-content">
+                    <h2>📬 Get the Latest News Daily!</h2>
+                    <p>Don't miss out on breaking news, exclusive interviews, and daily updates.</p>
+                </div>
+
+                <!-- Form Starts Here -->
+                <div class="form-container">
+                    <form class="nl-form" id="newsletterForm" novalidate>
+                        <input type="email" id="nl-email" placeholder="Enter your email address...">
+                        <button type="submit" class="nl-btn">Subscribe</button>
+                    </form>
+                    <!-- Message Output Box -->
+                    <div id="nl-message" class="nl-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Footer Content -->
+        <div class="footer-container">
+
+            <!-- Column 1: Brand -->
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo-container">
+                    <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+                </a>
+                <p>Your trusted source for breaking news, in-depth analysis, and exclusive stories from around the
+                    globe.</p>
+                <div class="social-links">
+                    <a href="404.html" title="Facebook">FB</a>
+                    <a href="404.html" title="Twitter">TW</a>
+                    <a href="404.html" title="Instagram">IG</a>
+                    <a href="404.html" title="YouTube">YT</a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="404.html">About Us</a></li>
+                    <li><a href="404.html">Advertise with us</a></li>
+                    <li><a href="404.html">Careers</a></li>
+                    <li><a href="404.html">Privacy Policy</a></li>
+                    <li><a href="404.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Categories -->
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="404.html">Politics & National</a></li>
+                    <li><a href="404.html">Business & Tech</a></li>
+                    <li><a href="404.html">Sports Arena</a></li>
+                    <li><a href="404.html">Entertainment</a></li>
+                    <li><a href="404.html">Health & Lifestyle</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Contact -->
+            <div class="footer-col contact-col">
+                <h4>Contact Us</h4>
+                <p>📍 123, Main Street, Salem, Tamil Nadu, 636001, India.</p>
+                <p>📞 +91 98765 43210</p>
+                <p>✉️ editor@magnews.com</p>
+            </div>
+
+        </div>
+
+        <!-- Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 MagNews. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const pulseItems = document.querySelectorAll('.pulse-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 1. Remove active class from all buttons
+                    filterBtns.forEach(button => button.classList.remove('active'));
+                    // 2. Add active class to clicked button
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    // 3. Filter items with smooth animation
+                    pulseItems.forEach(item => {
+                        // First remove animation classes
+                        item.classList.remove('animate');
+
+                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                            item.classList.remove('hide');
+                            // Small delay to trigger CSS animation properly
+                            setTimeout(() => {
+                                item.classList.add('animate');
+                            }, 50);
+                        } else {
+                            item.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const nlForm = document.getElementById("newsletterForm");
+
+            if (nlForm) {
+                nlForm.addEventListener("submit", function (e) {
+                    e.preventDefault(); // Prevents page reload
+
+                    const emailInput = document.getElementById("nlEmail");
+                    const inputGroup = document.getElementById("nlInputGroup");
+                    const errorDiv = document.getElementById("nlError");
+                    const submitBtn = document.getElementById("nlSubmitBtn");
+                    const btnText = submitBtn.querySelector(".nl-btn-text");
+                    const arrow = submitBtn.querySelector(".nl-arrow");
+
+                    const emailValue = emailInput.value.trim();
+                    // Regex for checking valid email format
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                    // 1. Validation Checks
+                    if (emailValue === "") {
+                        showError("Email field cannot be empty!");
+                    } else if (!emailPattern.test(emailValue)) {
+                        showError("Please enter a valid email address.");
+                    } else {
+                        // 2. Success State
+                        clearError();
+
+                        // Change Button to Success Mode
+                        submitBtn.classList.add("success");
+                        btnText.innerText = "Subscribed!";
+                        arrow.innerText = "✔";
+
+                        // 3. Simulate Server Request & Reset Form
+                        setTimeout(() => {
+                            nlForm.reset(); // Clear input
+
+                            // Reset Button Back to Normal
+                            submitBtn.classList.remove("success");
+                            btnText.innerText = "Subscribe Now";
+                            arrow.innerText = "↗";
+                            window.location.href = '404.html'
+                        }, 500); // Resets after 3 seconds
+                    }
+
+                    // Helper Functions
+                    function showError(msg) {
+                        errorDiv.innerText = msg;
+                        errorDiv.classList.add("show");
+                        inputGroup.classList.add("invalid");
+                    }
+
+                    function clearError() {
+                        errorDiv.innerText = "";
+                        errorDiv.classList.remove("show");
+                        inputGroup.classList.remove("invalid");
+                    }
+                });
+
+                // 4. Remove Error dynamically when user starts typing again
+                const emailInput = document.getElementById("nlEmail");
+                emailInput.addEventListener("input", function () {
+                    const inputGroup = document.getElementById("nlInputGroup");
+                    if (inputGroup.classList.contains("invalid")) {
+                        const errorDiv = document.getElementById("nlError");
+                        errorDiv.classList.remove("show");
+                        inputGroup.classList.remove("invalid");
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

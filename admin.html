@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Atka Editorial Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* Atka Magazine Theme Colors */
+            --primary-color: #DC143C;
+            /* Crimson Red */
+            --primary-light: #fbe5e9;
+            --primary-dark: #990e2a;
+            --secondary-color: #FF7F50;
+            /* Orange */
+
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-color: #f1f5f9;
+
+            /* Premium Dark Sidebar */
+            --sidebar-bg: #111827;
+            --sidebar-text: #9CA3AF;
+            --sidebar-hover: #1F2937;
+
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0B1120;
+            color: white;
+        }
+
+        .logo-da {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFFFFF;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo-da i {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        .close-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 25px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .menu-link i {
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .menu-link:hover {
+            background-color: var(--sidebar-hover);
+            color: #FFFFFF;
+        }
+
+        .menu-link.active {
+            background-color: rgba(220, 20, 60, 0.1);
+            color: #FFFFFF;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .menu-link.active i {
+            color: var(--primary-color);
+        }
+
+        .sidebar-bottom {
+            padding: 15px 0 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn {
+            color: #ef4444;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-left: 4px solid #ef4444;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 260px;
+            min-height: 100vh;
+            width: calc(100% - 260px);
+        }
+
+        .top-header {
+            background-color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 998;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .greeting h1 {
+            font-size: 24px;
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+
+        .welcome-name {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        .user-email {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 700;
+            display: block;
+        }
+
+        .user-avatar i {
+            font-size: 40px;
+            color: var(--primary-color);
+        }
+
+        /* --- VIEWS & ANIMATIONS --- */
+        .view-section {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.4s ease-in-out;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .view-section.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 19px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            border-left: 5px solid var(--primary-color);
+            padding-left: 12px;
+            font-weight: 800;
+        }
+
+        .scroll-anim {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-anim.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- CARDS & STATS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .stat-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .stat-details h3 {
+            font-size: 26px;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+            font-weight: 900;
+        }
+
+        .stat-details p {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+            width: 100%;
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+
+        /* --- FORMS & VALIDATION --- */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: var(--primary-color);
+            background-color: #f8fafc;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 700;
+        }
+
+        .input-error {
+            border-color: #ef4444 !important;
+        }
+
+        .success-msg {
+            color: #166534;
+            background: #dcfce7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            display: none;
+            text-align: center;
+            border: 1px solid #bbf7d0;
+        }
+
+        .main-btn,
+        .action-btn {
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 700;
+        }
+
+        .main-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 14px 24px;
+            width: 100%;
+            font-size: 15px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .main-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);
+        }
+
+        .action-btn {
+            background: rgba(220, 20, 60, 0.1);
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-color);
+            color: #FFF;
+        }
+
+        /* --- MEDIA ASSETS GRID --- */
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .media-item {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-color);
+            transition: 0.3s;
+        }
+
+        .media-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-light);
+        }
+
+        .media-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background: #cbd5e1;
+        }
+
+        .media-info {
+            padding: 15px;
+        }
+
+        .media-info h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .media-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .media-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .media-btn {
+            flex: 1;
+            padding: 6px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .btn-approve {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .btn-approve:hover {
+            background: #bbf7d0;
+        }
+
+        .btn-reject {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-reject:hover {
+            background: #fecaca;
+        }
+
+        /* --- TIMELINE & TABLE --- */
+        .timeline {
+            margin-top: 20px;
+            border-left: 3px solid #e2e8f0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #e2e8f0;
+        }
+
+        .timeline-item h4 {
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .timeline-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .time-badge {
+            font-size: 11px;
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            color: #475569;
+            margin-right: 5px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            min-width: 600px;
+        }
+
+        th,
+        td {
+            padding: 16px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        th {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status.published {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.draft {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .status.urgent {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+            margin-right: 5px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .menu-toggle,
+            .close-btn {
+                display: block;
+            }
+
+            .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .top-header {
+                padding: 15px;
+            }
+
+            .view-section {
+                padding: 15px;
+                gap: 20px;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .greeting h1 {
+                font-size: 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .logo-img {
+            width: 150px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .logo-da {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo-da i {
+            font-size: 28px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-header">
+                    <div class="logo-da">
+                        <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+                    </div>
+                    <button class="close-btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li><a class="menu-link active" data-target="dashboard-view">
+                            <i class="fa-solid fa-chart-pie"></i> Analytics
+                        </a></li>
+                    <li><a class="menu-link" data-target="editorial-view">
+                            <i class="fa-solid fa-pen-nib"></i> Editorial Desk
+                        </a></li>
+                    <li><a class="menu-link" data-target="reporters-view">
+                            <i class="fa-solid fa-users-viewfinder"></i> Active Reporters
+                        </a></li>
+                    <li><a class="menu-link" data-target="schedule-view">
+                            <i class="fa-solid fa-calendar-check"></i> Pub Schedule
+                        </a></li>
+                    <li><a class="menu-link" data-target="media-view">
+                            <i class="fa-solid fa-photo-film"></i> Media Assets
+                        </a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-bottom">
+                <a href="login.html" class="menu-link logout-btn">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="openSidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="greeting">
+                        <h1 id="page-title">Analytics <span class="welcome-name">| Overview</span></h1>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <span class="user-role">Editor-in-Chief</span>
+                            <span class="user-email">editor@atkanews.com</span>
+                        </div>
+                        <div class="user-avatar">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="dashboard-view" class="view-section active">
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary-color);">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>2.4M</h3>
+                            <p>Daily Page Views</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff7ed; color: #ea580c;">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>14</h3>
+                            <p>Trending Stories</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #dcfce7; color: #166534;">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>85K</h3>
+                            <p>Paid Subscribers</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Readership Traffic (Live)</h2>
+                    <div class="chart-container">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <div id="editorial-view" class="view-section">
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fee2e2; color: #991b1b;">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>03</h3>
+                            <p>Breaking News</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fef9c3; color: #854d0e;">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>12</h3>
+                            <p>Drafts Pending</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="two-col-grid">
+                    <section class="content-box scroll-anim">
+                        <h2 class="section-title">Pitch New Article</h2>
+                        <form id="articleForm" novalidate>
+                            <div id="formSuccess" class="success-msg">
+                                <i class="fa-solid fa-circle-check"></i> Article Pitch Submitted Successfully!
+                            </div>
+                            <div class="input-group">
+                                <label>Article Headline</label>
+                                <input type="text" id="headlineInput" placeholder="Enter a catchy headline..." required>
+                                <div class="error-msg" id="headlineError">Headline cannot be empty or too short.</div>
+                            </div>
+                            <div class="input-group">
+                                <label>News Category</label>
+                                <select id="categorySelect" required>
+                                    <option value="" selected disabled>Select Category</option>
+                                    <option value="politics">Politics & Global</option>
+                                    <option value="tech">Technology</option>
+                                    <option value="business">Business & Economy</option>
+                                    <option value="sports">Sports</option>
+                                </select>
+                                <div class="error-msg" id="categoryError">Please select a news category.</div>
+                            </div>
+                            <div class="input-group">
+                                <label>Urgency / Priority</label>
+                                <select id="prioritySelect" required>
+                                    <option value="" selected disabled>Select Priority Level</option>
+                                    <option value="breaking">Breaking News (Immediate)</option>
+                                    <option value="high">High Priority (Today)</option>
+                                    <option value="normal">Standard Editorial (2-3 Days)</option>
+                                </select>
+                                <div class="error-msg" id="priorityError">Please select the priority level.</div>
+                            </div>
+                            <button type="submit" class="main-btn">
+                                <i class="fa-solid fa-paper-plane"></i> Submit to Pipeline
+                            </button>
+                        </form>
+                    </section>
+
+                    <section class="content-box scroll-anim">
+                        <h2 class="section-title">Live Editorial Feed</h2>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">14:30</span> Breaking Update</h4>
+                                <p><strong>Arjun Prakash</strong> published <span
+                                        style="color: var(--primary-color);">"Tech Stocks Surge 5%"</span>.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">13:15</span> Media Upload</h4>
+                                <p>Photojournalist <strong>Sneha</strong> uploaded images to <i>Election Rally</i>
+                                    folder.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4><span class="time-badge">11:45</span> Draft Review</h4>
+                                <p>Chief Editor requested revisions on the <i>Climate Summit Op-Ed</i>.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div id="reporters-view" class="view-section">
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Trending Articles Pipeline</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Story Title</th>
+                                    <th>Author Desk</th>
+                                    <th>Read Time</th>
+                                    <th>Est. Views</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Global Markets Hit Record Highs</strong></td>
+                                    <td><i class="fa-solid fa-briefcase" style="color:var(--secondary-color);"></i>
+                                        Finance</td>
+                                    <td>5 Min</td>
+                                    <td><strong>125K</strong></td>
+                                    <td><span class="status published">Published</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>New AI Regulations Announced</strong></td>
+                                    <td><i class="fa-solid fa-microchip" style="color:var(--text-muted);"></i> Tech</td>
+                                    <td>8 Min</td>
+                                    <td>-</td>
+                                    <td><span class="status draft">In Review</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Exclusive: Election Results Leak</strong></td>
+                                    <td><i class="fa-solid fa-landmark" style="color:var(--primary-color);"></i>
+                                        Politics</td>
+                                    <td>3 Min</td>
+                                    <td>-</td>
+                                    <td><span class="status urgent">Breaking Edit</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div id="schedule-view" class="view-section">
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary-color);">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>24</h3>
+                            <p>Scheduled Today</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e0e7ff; color: #4f46e5;">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>02</h3>
+                            <p>Newsletters Queued</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Upcoming Publications Queue</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time (IST)</th>
+                                    <th>Headline / Content Type</th>
+                                    <th>Platform Distribution</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>08:00 AM</strong></td>
+                                    <td>The Daily Briefing (Morning)</td>
+                                    <td><i class="fa-solid fa-envelope text-muted"></i> Email Newsletter</td>
+                                    <td><span class="status published">Ready</span></td>
+                                    <td><a href="404.html" class="action-btn">Edit Slot</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>11:30 AM</strong></td>
+                                    <td>Tech Giants Reveal Q3 Earnings</td>
+                                    <td><i class="fa-solid fa-globe text-muted"></i> Website & App</td>
+                                    <td><span class="status draft">Pending Review</span></td>
+                                    <td><a href="404.html" class="action-btn">Edit Slot</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>02:00 PM</strong></td>
+                                    <td>Video: Climate Summit Highlights</td>
+                                    <td><i class="fa-brands fa-youtube text-muted"></i> YouTube Sync</td>
+                                    <td><span class="status urgent">Missing Assets</span></td>
+                                    <td><a href="404.html" class="action-btn">Edit Slot</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <div id="media-view" class="view-section">
+                <section class="stats-grid scroll-anim">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary-color);">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>14,592</h3>
+                            <p>Total Media Assets</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0284c7;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>78%</h3>
+                            <p>Cloud Storage Used</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fef9c3; color: #854d0e;">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>12</h3>
+                            <p>Pending Copyright Checks</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-box scroll-anim">
+                    <h2 class="section-title">Recent Uploads Queue</h2>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <img src="./asset/ne1.webp" alt="Finance" class="media-img">
+                            <div class="media-info">
+                                <h4>Wall Street Stock Market Ticker</h4>
+                                <div class="media-meta">
+                                    <span><i class="fa-solid fa-image"></i> High-Res JPG</span>
+                                    <span>2.4 MB</span>
+                                </div>
+                                <div class="media-actions">
+                                    <a href="404.html" class="media-btn btn-approve"><i class="fa-solid fa-check"></i>
+                                        Approve</a>
+                                    <a href="404.html" class="media-btn btn-reject"><i class="fa-solid fa-xmark"></i>
+                                        Reject</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media-item">
+                            <img src="./asset/ne2.webp" alt="Tech" class="media-img">
+                            <div class="media-info">
+                                <h4>Data Center Servers</h4>
+                                <div class="media-meta">
+                                    <span><i class="fa-solid fa-video"></i> B-Roll 4K</span>
+                                    <span>145 MB</span>
+                                </div>
+                                <div class="media-actions">
+                                    <a href="404.html" class="media-btn btn-approve"><i class="fa-solid fa-check"></i>
+                                        Approve</a>
+                                    <a href="404.html" class="media-btn btn-reject"><i class="fa-solid fa-xmark"></i>
+                                        Reject</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media-item">
+                            <img src="./asset/ne3.webp" alt="Politics" class="media-img">
+                            <div class="media-info">
+                                <h4>Press Conference Stage</h4>
+                                <div class="media-meta">
+                                    <span><i class="fa-solid fa-image"></i> Press Kit</span>
+                                    <span>1.1 MB</span>
+                                </div>
+                                <div class="media-actions">
+                                    <a href="404.html" class="media-btn btn-approve"><i class="fa-solid fa-check"></i>
+                                        Approve</a>
+                                    <a href="404.html" class="media-btn btn-reject"><i class="fa-solid fa-xmark"></i>
+                                        Reject</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media-item">
+                            <img src="./asset/ne4.webp" alt="Executive" class="media-img">
+                            <div class="media-info">
+                                <h4>CEO Interview Portrait</h4>
+                                <div class="media-meta">
+                                    <span><i class="fa-solid fa-camera"></i> RAW</span>
+                                    <span>18.5 MB</span>
+                                </div>
+                                <div class="media-actions">
+                                    <a href="404.html" class="media-btn btn-approve"><i class="fa-solid fa-check"></i>
+                                        Approve</a>
+                                    <a href="404.html" class="media-btn btn-reject"><i class="fa-solid fa-xmark"></i>
+                                        Reject</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+
+        const emailValue = localStorage.getItem("UserMail");
+        const email = emailValue || "admin@nexus.ai";
+        const extractedName = email.split("@")[0];
+        const formattedName = extractedName.charAt(0).toUpperCase() + extractedName.slice(1);
+
+        document.querySelector(".user-email").textContent = email;
+        const welcomeEl = document.querySelector(".welcome-name");
+        if (welcomeEl) { welcomeEl.textContent = `| Welcome, ${formattedName} 👋`; }
+        // --- SIDEBAR LOGIC ---
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openSidebarBtn = document.getElementById('openSidebar');
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+
+        function openSidebar() { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeSidebar() { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        openSidebarBtn.addEventListener('click', openSidebar);
+        closeSidebarBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        // --- TAB SWITCHING ---
+        const menuLinks = document.querySelectorAll('.sidebar-menu .menu-link');
+        const views = document.querySelectorAll('.view-section');
+        const pageTitle = document.getElementById('page-title');
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                if (this.classList.contains('active')) return;
+
+                menuLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                views.forEach(v => v.classList.remove('active'));
+
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+
+                // Update Title
+                let titleText = this.innerText.trim();
+                pageTitle.innerHTML = `${titleText} <span class="welcome-name">| Overview</span>`;
+
+                if (window.innerWidth <= 992) { closeSidebar(); }
+                triggerAnimations();
+            });
+        });
+
+        // --- CHART JS ---
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+                datasets: [{
+                    label: 'Page Views (per hour)',
+                    data: [12000, 35000, 80000, 145000, 120000, 180000, 240000],
+                    borderColor: '#DC143C',
+                    backgroundColor: 'rgba(220, 20, 60, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#DC143C',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#e2e8f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // --- SCROLL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('show'); }
+            });
+        }, { threshold: 0.1 });
+
+        function triggerAnimations() {
+            const animElements = document.querySelectorAll('.scroll-anim');
+            animElements.forEach(el => {
+                el.classList.remove('show');
+                observer.observe(el);
+            });
+        }
+        triggerAnimations();
+
+        // --- FORM VALIDATION ---
+        document.getElementById('articleForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const headlineInput = document.getElementById('headlineInput');
+            const categorySelect = document.getElementById('categorySelect');
+            const prioritySelect = document.getElementById('prioritySelect');
+
+            const headlineError = document.getElementById('headlineError');
+            const categoryError = document.getElementById('categoryError');
+            const priorityError = document.getElementById('priorityError');
+            const formSuccess = document.getElementById('formSuccess');
+
+            let isValid = true;
+
+            // Reset errors
+            headlineInput.classList.remove('input-error');
+            categorySelect.classList.remove('input-error');
+            prioritySelect.classList.remove('input-error');
+            headlineError.style.display = 'none';
+            categoryError.style.display = 'none';
+            priorityError.style.display = 'none';
+            formSuccess.style.display = 'none';
+
+            if (headlineInput.value.trim().length < 5) {
+                headlineInput.classList.add('input-error');
+                headlineError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (categorySelect.value === '') {
+                categorySelect.classList.add('input-error');
+                categoryError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (prioritySelect.value === '') {
+                prioritySelect.classList.add('input-error');
+                priorityError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                formSuccess.style.display = 'block';
+                setTimeout(() => {
+                    this.reset();
+                    formSuccess.style.display = 'none';
+                    window.location.href = '404.html'
+                }, 500);
+            }
+        });
+    </script>
+</body>
+
+</html>

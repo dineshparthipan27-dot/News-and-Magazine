@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly News | Login</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="login.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-overlay"></div>
+
+    <div class="news-grid"></div>
+
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="floating floating-1">
+        <i class="fa-solid fa-newspaper"></i>
+    </div>
+
+    <div class="floating floating-2">
+        <i class="fa-solid fa-globe"></i>
+    </div>
+
+    <div class="floating floating-3">
+        <i class="fa-solid fa-satellite-dish"></i>
+    </div>
+
+    <!-- Back -->
+
+    <a href="index.html" class="back-home">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        <span>Back to Home</span>
+
+    </a>
+
+    <!-- Main Container -->
+
+    <div class="auth-wrapper">
+
+        <!-- Left Side -->
+
+        <div class="auth-left">
+
+            <span class="news-badge">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                BREAKING NEWS
+
+            </span>
+
+            <h1>
+
+                Welcome to
+
+                <span>Stackly News</span>
+
+            </h1>
+
+            <p>
+
+                Stay connected with breaking news, trusted journalism,
+                exclusive editorials, business insights, technology,
+                sports, politics and world updates.
+
+            </p>
+
+            <div class="news-stats">
+
+                <div class="stat">
+
+                    <h2>12M+</h2>
+
+                    <span>Readers</span>
+
+                </div>
+
+                <div class="stat">
+
+                    <h2>180+</h2>
+
+                    <span>Countries</span>
+
+                </div>
+
+                <div class="stat">
+
+                    <h2>24/7</h2>
+
+                    <span>Live News</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="auth-card">
+
+             <div class="logo">
+                <img src="./asset/redlogo.webp" alt="Company Logo" class="logo-img">
+            </div>
+
+            <div class="tab-buttons">
+
+                <button class="active" id="loginBtn">
+
+                    Login
+
+                </button>
+
+                <button id="signupBtn">
+
+                    Sign Up
+
+                </button>
+
+            </div>
+
+            <!-- LOGIN -->
+
+            <form id="loginForm">
+
+                <h2>Welcome Back</h2>
+
+                <p class="subtitle">
+
+                    Login to continue reading the latest news.
+
+                </p>
+
+                <select id="loginRole">
+
+                    <option value="">Select Role</option>
+
+                    <option value="admin">Admin</option>
+
+                    <option value="user">User</option>
+
+                </select>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Email Address">
+
+                </div>
+
+                <span
+                    class="error-msg"
+                    id="loginEmailError"></span>
+
+                <div class="password-box">
+
+                    <i class="fa-solid fa-lock lock-icon"></i>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Password">
+
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <span
+                    class="error-msg"
+                    id="loginPasswordError"></span>
+
+                <div class="options">
+
+                    <label class="remember-me">
+
+                        <input type="checkbox">
+
+                        Remember Me
+
+                    </label>
+
+                    <a href="404.html">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <button
+                    class="main-btn"
+                    type="submit">
+
+                    Login
+
+                </button>
+
+                <div class="divider">
+
+                    OR CONTINUE WITH
+
+                </div>
+
+                <div class="social-icons">
+
+                    <a href="404.html">
+
+                        <i class="fab fa-google"></i>
+
+                    </a>
+
+                    <a href="404.html">
+
+                        <i class="fab fa-facebook-f"></i>
+
+                    </a>
+
+                    <a href="404.html">
+
+                        <i class="fab fa-apple"></i>
+
+                    </a>
+
+                </div>
+
+                <p class="bottom-text">
+
+                    Don't have an account?
+
+                    <span id="showSignup">
+
+                        Create Account
+
+                    </span>
+
+                </p>
+
+            </form>
+
+            <!-- SIGNUP -->
+
+            <form
+                id="signupForm"
+                class="hidden">
+
+                <h2>Create Account</h2>
+
+                <p class="subtitle">
+
+                    Join Stackly News today.
+
+                </p>
+
+                <select id="signupRole">
+
+                    <option value="">Select Role</option>
+
+                    <option value="admin">Admin</option>
+
+                    <option value="user">User</option>
+
+                </select>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="signupName"
+                        placeholder="Full Name">
+
+                </div>
+
+                <span
+                    class="error-msg"
+                    id="signupNameError"></span>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Email Address">
+
+                </div>
+
+                <span
+                    class="error-msg"
+                    id="signupEmailError"></span>
+
+                <div class="password-box">
+
+                    <i class="fa-solid fa-lock lock-icon"></i>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        class="password"
+                        placeholder="Password">
+
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <span
+                    class="error-msg"
+                    id="signupPasswordError"></span>
+
+                <div class="password-box">
+
+                    <i class="fa-solid fa-lock lock-icon"></i>
+
+                    <input
+                        type="password"
+                        id="signupConfirmPassword"
+                        class="password"
+                        placeholder="Confirm Password">
+
+                    <i class="fa-solid fa-eye toggle-password"></i>
+
+                </div>
+
+                <span
+                    class="error-msg"
+                    id="signupConfirmError"></span>
+
+                <button
+                    type="submit"
+                    class="main-btn">
+
+                    Create Account
+
+                </button>
+
+                <div class="divider">
+
+                    OR CONTINUE WITH
+
+                </div>
+
+                <div class="social-icons">
+
+                    <a href="404.html">
+
+                        <i class="fab fa-google"></i>
+
+                    </a>
+
+                    <a href="404.html">
+
+                        <i class="fab fa-facebook-f"></i>
+
+                    </a>
+
+                    <a href="404.html">
+
+                        <i class="fab fa-apple"></i>
+
+                    </a>
+
+                </div>
+
+                <p class="bottom-text">
+
+                    Already have an account?
+
+                    <span id="showLogin">
+
+                        Login
+
+                    </span>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>
