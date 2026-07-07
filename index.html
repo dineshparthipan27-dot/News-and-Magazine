@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="news.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -240,7 +241,7 @@
 
 
         <div class="load-more-container" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="500">
-            <button class="load-more-btn" id="loadMoreBtn">Load More News</button>
+            <a href="404.html" class="load-more-btn">Load More News</a>
         </div>
     </section>
 
@@ -712,10 +713,10 @@
                 <p>Your trusted source for breaking news, in-depth analysis, and exclusive stories from around the
                     globe.</p>
                 <div class="social-links">
-                    <a href="404.html" title="Facebook">FB</a>
-                    <a href="404.html" title="Twitter">TW</a>
-                    <a href="404.html" title="Instagram">IG</a>
-                    <a href="404.html" title="YouTube">YT</a>
+                    <a href="404.html" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="404.html" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="404.html" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="404.html" title="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
 
@@ -723,11 +724,11 @@
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="404.html">About Us</a></li>
-                    <li><a href="404.html">Advertise with us</a></li>
-                    <li><a href="404.html">Careers</a></li>
-                    <li><a href="404.html">Privacy Policy</a></li>
-                    <li><a href="404.html">Terms of Service</a></li>
+                    <li><a href="404.html">Home</a></li>
+                    <li><a href="404.html">About</a></li>
+                    <li><a href="404.html">Services</a></li>
+                    <li><a href="404.html">Blog</a></li>
+                    <li><a href="404.html">Contact</a></li>
                 </ul>
             </div>
 
@@ -808,19 +809,6 @@
             slider.scrollLeft = scrollLeft - walk;
         });
 
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-        loadMoreBtn.addEventListener('click', function () {
-
-            this.innerHTML = "Loading... ⏳";
-
-
-            setTimeout(() => {
-                this.innerHTML = "Load More News";
-
-                alert("More news loaded!"); // Just a test alert
-            }, 1500);
-        });
 
 
         const videoModal = document.getElementById('videoModal');
@@ -828,14 +816,14 @@
 
 
         function openVideoModal(videoUrl) {
-            videoPlayer.src = videoUrl + "?autoplay=1"; 
-            videoModal.style.display = 'flex'; 
+            videoPlayer.src = videoUrl + "?autoplay=1";
+            videoModal.style.display = 'flex';
         }
 
 
         function closeVideoModal() {
             videoModal.style.display = 'none';
-            videoPlayer.src = ""; 
+            videoPlayer.src = "";
         }
 
 
