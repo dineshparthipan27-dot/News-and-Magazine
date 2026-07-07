@@ -1823,3 +1823,34 @@
   .btn-nl-submit.success .nl-arrow {
       transform: none;
   }
+
+  /* 1. Make the form the anchor point */
+.nl-form {
+    position: relative; /* This is required so the absolute positioned error stays relative to the form */
+    width: 100%;
+    /* Keep any other styles you already have for width, margin, etc. */
+}
+
+/* 2. Keep your input group intact */
+.nl-input-group {
+    /* Assuming you already have these styles to make the pill shape */
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1; /* Keeps the input field above the error message */
+}
+
+/* 3. Drop the error message below the form */
+.nl-error-msg {
+    position: absolute;
+    bottom: -24px; /* Adjust this value to push it further up or down */
+    left: 25px; /* Aligns visually with where your placeholder text starts */
+    
+    color: #d90429; /* Match the red from your button */
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap; /* This is the magic rule that prevents the text from squishing into a column */
+    
+    /* Ensure it doesn't block clicks */
+    pointer-events: none; 
+}
